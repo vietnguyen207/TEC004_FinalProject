@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>StudyTrack | Đăng nhập</title>
+    <style>
+        /* -------------------- RESET & TOÀN CỤC -------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f8fafd;
+            color: #0f172a;
+            line-height: 1.4;
+        }
+
+        /* -------------------- THANH ĐIỀU HƯỚNG (NAVBAR) -------------------- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 48px;
+            background: #ffffff;
+            border-bottom: 1px solid #e9edf2;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo {
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: linear-gradient(130deg, #1f3a6b, #2c5aa6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #1e293b;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #2c6ef8;
+        }
+
+        /* Nút LOGIN và SIGNUP đặc biệt (giống ảnh) */
+        .nav-links .login-btn-nav {
+            background: transparent;
+            border: 1.5px solid #2c6ef8;
+            padding: 6px 20px;
+            border-radius: 40px;
+            color: #2c6ef8;
+        }
+
+        .nav-links .signup-btn-nav {
+            background: #2c6ef8;
+            color: white;
+            padding: 6px 20px;
+            border-radius: 40px;
+            border: none;
+        }
+
+        .signup-btn-nav:active,
+        .or-signup a:active {
+            transform: scale(0.96);
+            background-color: #5a8ef9;
+            /* màu xanh sáng hơn, không làm tối chữ */
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4), 0 0 10px rgba(44, 110, 248, 0.7);
+            transition: all 0.05s linear;
+            color: white !important;
+        }
+
+        /* Đảm bảo chữ không bị đổi màu */
+        .login-btn-nav {
+            color: white;
+        }
+
+        /* -------------------- PHẦN NỘI DUNG CHÍNH -------------------- */
+        .main-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        /* Cột trái - Slogan */
+        .hero-left {
+            flex: 1.1;
+            min-width: 260px;
+        }
+
+        .hero-left .big-logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(130deg, #1f3a6b, #2c5aa6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .hero-left h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #0b2b44;
+            margin-bottom: 20px;
+        }
+
+        .hero-left .description {
+            font-size: 1.05rem;
+            color: #475569;
+            border-left: 4px solid #2c6ef8;
+            padding-left: 20px;
+            max-width: 460px;
+        }
+
+        /* Cột phải - Form đăng nhập */
+        .login-box {
+            flex: 0.9;
+            min-width: 360px;
+            background: white;
+            border-radius: 36px;
+            padding: 40px 38px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+            transition: all 0.2s;
+        }
+
+        .login-box h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #0f172a;
+        }
+
+        .login-sub {
+            color: #5b6e8c;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .input-field {
+            margin-bottom: 22px;
+        }
+
+        .input-field label {
+            display: block;
+            font-weight: 500;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            background: #fefefe;
+            transition: 0.2s;
+        }
+
+        .input-field input:focus {
+            outline: none;
+            border-color: #2c6ef8;
+            box-shadow: 0 0 0 3px rgba(44, 110, 248, 0.1);
+        }
+
+        /* Row chứa Remember Me và Forgot Password */
+        .row-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0 28px;
+            font-size: 0.85rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #334155;
+            cursor: pointer;
+        }
+
+        .forgot-link {
+            color: #2c6ef8;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Nút LOGIN chính */
+        .btn-login {
+            width: 100%;
+            background: #2c6ef8;
+            color: white;
+            border: none;
+            padding: 14px 0;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 44px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 24px;
+        }
+
+        .btn-login:hover {
+            background: #1a56d1;
+            transform: scale(0.98);
+        }
+
+        /* Dòng "or Sign up" */
+        .or-signup {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #5b6e8c;
+            border-top: 1px solid #edf2f7;
+            padding-top: 24px;
+            margin-top: 8px;
+        }
+
+        .or-signup a {
+            color: #2c6ef8;
+            font-weight: 600;
+            text-decoration: none;
+            margin-left: 6px;
+        }
+
+        .or-signup a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- THANH ĐIỀU HƯỚNG (đúng yêu cầu: StudyTrack, HOME, ABOUT US, CONTACT, LOGIN, SIGNUP) -->
+    <nav class="navbar">
+        <div class="logo">StudyTrack</div>
+        <div class="nav-links">
+            <a href="#">HOME</a>
+            <a href="#">ABOUT US</a>
+            <a href="#">CONTACT</a>
+            <a href="#" class="login-btn-nav">LOG IN</a>
+            <a href="#" class="signup-btn-nav">SIGN UP</a>
+        </div>
+    </nav>
+
+    <!-- PHẦN CHÍNH: SLOGAN BÊN TRÁI + FORM LOGIN BÊN PHẢI -->
+    <div class="main-container">
+        <!-- Cột trái -->
+        <div class="hero-left">
+            <div class="big-logo">StudyTrack</div>
+            <h1>ACHIEVE YOUR POTENTIAL</h1>
+            <div class="description">
+                A smart platform to track your learning journey, develop skills, and achieve your goals.
+            </div>
+        </div>
+
+        <!-- Cột phải: Form login đầy đủ -->
+        <div class="login-box">
+            <h2>Log in</h2>
+            <div class="login-sub">Welcome back! Enter your information.</div>
+
+            <form>
+                <div class="input-field">
+                    <label>Username</label>
+                    <input type="text" placeholder="Username or email" autocomplete="username" required>
+                </div>
+                <div class="input-field">
+                    <label>Password</label>
+                    <input type="password" placeholder="Password" autocomplete="current-password" required>
+                </div>
+
+                <!-- Dòng nhớ mật khẩu & quên mật khẩu -->
+                <div class="row-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" required> Remember Me
+                    </label>
+                    <a href="#" class="forgot-link">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn-login">Login</button>
+
+                <!-- Dòng "or Sign up" giống yêu cầu -->
+                <div class="or-signup">
+                    or <a href="#">Sign up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- (Chú thích: Bạn có thể thay đổi nội dung mô tả, màu sắc tùy thích) -->
+</body>
+
+</html>

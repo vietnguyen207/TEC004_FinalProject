@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Instructor</title>
+</head>
+
+<body>
+
+<h2>Add Instructor</h2>
+
+<form method="POST">
+    <label>Instructor ID</label>
+   <input
+        type="text"
+        name="id"
+        value="{{ instructor.id if instructor else '' }}"
+        class="{% if error_instructor_id %}error{% endif %}"
+        required
+    >
+
+    {% if error_instructor_id %}
+        <div class="error-message">
+            {{ error_instructor_id }}
+        </div>
+    {% endif %}
+
+    <br>
+
+    <label>Instructor Name</label>
+    <input
+        type="text"
+        name="name"
+        value="{{ instructor.name if instructor else '' }}"
+        required
+    >
+
+    <br>
+
+    <label>Email</label>
+    <input
+        type="email"
+        name="email"
+        value="{{ instructor.email if instructor else '' }}"
+        required
+    >
+
+    <br>
+
+    <label>Department</label>
+    <input
+        type="text"
+        name="department"
+        value="{{ instructor.department if instructor else '' }}"
+        required
+    >
+
+    <br>
+
+    <button type="submit">Add Instructor</button>
+
+
+
+
+
+</form>
+<a href="/">Back Home</a>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>SP4 Analytics</title>
+
+</head>
+
+<body>
+
+    <h1>
+        Analytics Dashboard
+    </h1>
+
+    <hr>
+
+    <h2>
+        GPA Calculation
+    </h2>
+
+    <a href="/analytics/gpa">
+
+        View GPA Table
+
+    </a>
+
+    <hr>
+
+    <h2>
+        Class Ranking
+    </h2>
+
+    <form
+        action=""
+        onsubmit="
+        window.location=
+        '/analytics/ranking/'
+        +
+        semester.value;
+        return false;
+        "
+    >
+
+        <input
+            type="text"
+            id="semester"
+            placeholder="Semester"
+            required
+        >
+
+        <button>
+
+            Show Ranking
+
+        </button>
+
+    </form>
+
+<hr>
+
+<div class="card">
+
+<h2>
+
+Attendance vs Grade Correlation
+
+</h2>
+
+<button
+onclick="
+fetch('/api/attendance_grade')
+.then(response=>response.json())
+.then(data=>{
+
+document.getElementById(
+'att_corr'
+).innerHTML=
+
+data.correlation;
+
+});
+"
+>
+
+Calculate
+
+</button>
+
+<p
+id="att_corr"
+class="result"
+></p>
+
+</div>
+
+<hr>
+
+<div class="card">
+
+<h2>
+
+Midterm vs Final Correlation
+
+</h2>
+
+<button
+onclick="
+fetch('/api/midterm_final')
+.then(response=>response.json())
+.then(data=>{
+
+document.getElementById(
+'mid_corr'
+).innerHTML=
+
+data.correlation;
+
+});
+"
+>
+
+Calculate
+
+</button>
+
+<p
+id="mid_corr"
+class="result"
+></p>
+
+</div>
+</body>
+
+</html>

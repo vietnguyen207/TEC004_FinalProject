@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Grade Scheme</title>
+
+</head>
+
+<body>
+
+<h2>
+
+Instructor :
+
+{{ instructor_id }}
+
+</h2>
+
+<table border="1">
+
+<tr>
+
+<th>Course</th>
+
+<th>Assignment %</th>
+
+<th>Midterm %</th>
+
+<th>Final %</th>
+
+<th></th>
+
+</tr>
+
+{% for c in courses %}
+
+<form method="POST">
+
+<tr>
+
+<td>
+
+{{ c["course_name"] }}
+
+<input
+type="hidden"
+name="course_id"
+value="{{ c['course_id'] }}">
+
+</td>
+
+<td>
+
+<input
+type="number"
+
+name="assignment"
+
+value="{{ c['assignment_weight'] or 0 }}"
+
+min="0"
+
+max="100">
+
+</td>
+
+<td>
+
+<input
+type="number"
+
+name="midterm"
+
+value="{{ c['midterm_weight'] or 0 }}"
+
+min="0"
+
+max="100">
+
+</td>
+
+<td>
+
+<input
+type="number"
+
+name="final"
+
+value="{{ c['final_weight'] or 0 }}"
+
+min="0"
+
+max="100">
+
+</td>
+
+<td>
+
+<button>
+
+Save
+
+</button>
+
+</td>
+
+</tr>
+
+</form>
+
+{% endfor %}
+
+</table>
+
+</body>
+
+</html>

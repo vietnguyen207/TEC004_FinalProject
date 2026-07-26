@@ -1,0 +1,57 @@
+{% extends "base/student_base.html" %}
+
+{% block content %}
+
+<h2>
+
+My Courses
+
+</h2>
+
+<table>
+
+<tr>
+
+<th>ID</th>
+
+<th>Name</th>
+
+<th>Semester</th>
+
+<th></th>
+
+</tr>
+
+{% for course in courses %}
+
+<tr>
+
+<td>{{ course.course_id }}</td>
+
+<td>{{ course.course_name }}</td>
+
+<td>{{ course.semester }}</td>
+
+<td>
+
+<a href="{{ url_for(
+
+'student.course_dashboard',
+
+course_id=course.course_id
+
+) }}">
+
+Open
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

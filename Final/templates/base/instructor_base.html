@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Instructor</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static',
+filename='css/instructor.css') }}">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>Instructor</h2>
+
+<a href="{{ url_for('instructor.dashboard') }}">
+Dashboard
+</a>
+
+<a href="{{ url_for('instructor.my_courses') }}">
+My Courses
+</a>
+
+<hr>
+
+<a href="{{ url_for('auth.logout') }}">
+Logout
+</a>
+
+</div>
+
+<div class="main">
+
+<div class="topbar">
+
+Welcome {{ session["username"] }}
+
+</div>
+
+{% block content %}
+
+{% endblock %}
+
+</div>
+
+</body>
+
+</html>

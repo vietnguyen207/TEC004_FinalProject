@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyTrack - Add Instructor</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- File CSS riêng -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_page/managment_instructor.css') }}">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a href="/admin" class="nav-brand">
+            <i class="fa-solid fa-graduation-cap logo-icon"></i>
+            <span>StudyTrack</span>
+        </a>
+        <a href="/admin" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i> Back Home
+        </a>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <img src="{{ url_for('static', filename='gif image/Studying College Life GIF by University of Florida (1).gif') }}"
+                    alt="Ảnh động" width="100">
+                <h1 class="page-title">Management Instructors</h1>
+            </div>
+        </div>
+
+
+        <div class="card-panel">
+            <h2 class="panel-title"><i class="fa-solid fa-user-plus"></i> Add Instructor</h2>
+            <form method="POST" class="form-grid">
+                <div class="form-group">
+                    <label>Instructor ID</label>
+                    <input type="text" name="id" value="{{ instructor.id if instructor else '' }}"
+                        placeholder="e.g., INST001" class="form-control {% if error_instructor_id %}error{% endif %}"
+                        required>
+                    {% if error_instructor_id %}
+                    <div class="error-message">
+                        {{ error_instructor_id }}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label>Instructor Name</label>
+                    <input type="text" name="name" value="{{ instructor.name if instructor else '' }}"
+                        placeholder="e.g., John Doe" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" value="{{ instructor.email if instructor else '' }}"
+                        placeholder="e.g., john.doe@gmail.com" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Department</label>
+                    <input type="text" name="department" value="{{ instructor.department if instructor else '' }}"
+                        placeholder="e.g., Computer Science" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn-submit"><i class="fa-solid fa-plus"></i> Add Instructor</button>
+            </form>
+        </div>
+
+        <div class="card-panel">
+            <h2 class="panel-title"><i class="fa-solid fa-list"></i> Instructor List</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Department</th>
+                            <th>Grade Scheme</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for instructor in instructors %}
+                        <tr>
+                            <td><b>{{ instructor["instructor_id"] }}</b></td>
+                            <td>{{ instructor["name"] }}</td>
+                            <td>{{ instructor["email"] }}</td>
+                            <td>{{ instructor["department"] }}</td>
+                            <td>
+                                <a href="{{ url_for('admin.edit_grade_scheme', instructor_id=instructor['instructor_id']) }}"
+                                    class="grade-link">
+                                    <i class="fa-solid fa-pen-to-square"></i> Edit Percentage
+                                </a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="empty-state">No instructors found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

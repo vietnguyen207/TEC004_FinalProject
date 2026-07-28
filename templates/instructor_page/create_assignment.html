@@ -1,0 +1,62 @@
+{% extends "base/instructor_base.html" %}
+
+{% block content %}
+
+
+<h2>Create Assignment</h2>
+
+<form method="POST">
+
+<label>Assignment Name</label>
+
+<input
+type="text"
+name="assignment_name"
+required>
+
+<br><br>
+<label>Assignment Type</label>
+
+<select name="assignment_type">
+
+    <option value="assignment">Assignment</option>
+
+    <option value="midterm">Midterm</option>
+
+    <option value="final">Final</option>
+
+
+</select>
+<br><br>
+<label>Description</label><br>
+
+    <textarea
+        name="description"
+        rows="6"
+        cols="60"
+        placeholder="Describe the assignment..."
+    ></textarea>
+
+<br><br>
+<label>Due Date</label>
+
+<input
+type="date"
+name="due_date">
+
+<br><br>
+
+<label>Max Points</label>
+
+<input
+type="number"
+step="0.1"
+name="max_points">
+
+<br><br>
+
+<button>Create</button>
+
+</form>
+
+{% endblock %}

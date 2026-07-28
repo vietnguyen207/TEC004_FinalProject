@@ -1,0 +1,381 @@
+{% extends "base/student_base.html" %}
+
+
+
+{% block title %}
+Attendance Report
+{% endblock %}
+
+{% block content %}
+{% include "student_page/nav/course_nav.html" %}
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>Attendance Report</h2>
+
+        <button
+            class="btn btn-success"
+            onclick="window.print()">
+
+            Print Report
+
+        </button>
+
+    </div>
+
+    <!-- ================= Course Information ================= -->
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-header bg-primary text-white">
+
+            <h5 class="mb-0">
+
+                Course Information
+
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><strong>Course ID:</strong> {{ course.course_id }}</p>
+
+                    <p><strong>Course Name:</strong> {{ course.course_name }}</p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p><strong>Semester:</strong> {{ course.semester }}</p>
+
+                    <p><strong>Total Sessions:</strong> {{ course.sessions }}</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= Attendance Summary ================= -->
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-header bg-success text-white">
+
+            <h5 class="mb-0">
+
+                Attendance Summary
+
+            </h5>
+
+        </div>
+
+        <div class="card-body text-center">
+
+            <h1>
+
+                {{ "%.2f"|format(rate) }}%
+
+            </h1>
+
+            {% if rate >= 80 %}
+
+                <span class="badge bg-success">
+
+                    Excellent
+
+                </span>
+
+            {% elif rate >= 60 %}
+
+                <span class="badge bg-warning text-dark">
+
+                    Acceptable
+
+                </span>
+
+            {% else %}
+
+                <span class="badge bg-danger">
+
+                    At Risk
+
+                </span>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <!-- ================= Attendance Statistics ================= -->
+
+    <div class="row text-center">
+
+    <div class="col-md-3">
+
+        <h2 class="text-success">
+
+            {{ summary.present }}
+
+        </h2>
+
+        <p>Present</p>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <h2 class="text-warning">
+
+            {{ summary.late }}
+
+        </h2>
+
+        <p>Late</p>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <h2 class="text-danger">
+
+            {{ summary.absent }}
+
+        </h2>
+
+        <p>Absent</p>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <h2 class="text-primary">
+
+            {{ summary.total }}
+
+        </h2>
+
+        <p>Total Sessions</p>
+
+    </div>
+
+</div>
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-header bg-secondary text-white">
+
+            <h5 class="mb-0">
+
+                Attendance Statistics
+
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row text-center">
+
+                <div class="col-md-4">
+
+                    <h3 class="text-success">
+
+                        {{ present }}
+
+                    </h3>
+
+                    <p>Present</p>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <h3 class="text-warning">
+
+                        {{ late }}
+
+                    </h3>
+
+                    <p>Late</p>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <h3 class="text-danger">
+
+                        {{ absent }}
+
+                    </h3>
+
+                    <p>Absent</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= Attendance History ================= -->
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-header bg-dark text-white">
+
+            <h5 class="mb-0">
+
+                Attendance History
+
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered table-hover text-center">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>Session</th>
+
+                        <th>Date</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for row in report %}
+
+                    <tr>
+
+                        <td>{{ row.session_number }}</td>
+
+                        <td>{{ row.attendance_date }}</td>
+
+                        <td>
+
+                            {% if row.status=="Present" %}
+
+                                <span class="badge bg-success">
+
+                                    Present
+
+                                </span>
+
+                            {% elif row.status=="Late" %}
+
+                                <span class="badge bg-warning text-dark">
+
+                                    Late
+
+                                </span>
+
+                            {% elif row.status=="Absent" %}
+
+                                <span class="badge bg-danger">
+
+                                    Absent
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-secondary">
+
+                                    {{ row.status }}
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- ================= Final Result ================= -->
+
+    <div class="card shadow">
+
+        <div class="card-header bg-info text-white">
+
+            <h5 class="mb-0">
+
+                Final Result
+
+            </h5>
+
+        </div>
+
+        <div class="card-body text-center">
+
+            {% if rate >= 80 %}
+
+                <div class="alert alert-success">
+
+                    Excellent attendance. Keep it up!
+
+                </div>
+
+            {% elif rate >= 60 %}
+
+                <div class="alert alert-warning">
+
+                    Attendance is acceptable but can be improved.
+
+                </div>
+
+            {% else %}
+
+                <div class="alert alert-danger">
+
+                    Attendance is below the recommended level.
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <a
+        href="{{ url_for('student.attendance', course_id=course.course_id) }}"
+        class="btn btn-primary">
+
+        Back to Attendance
+
+    </a>
+
+</div>
+
+{% endblock %}

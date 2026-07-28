@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- ===== 1. METADATA & CONFIGURATION ===== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyTrack - Class Ranking ({{ semester }})</title>
+
+    <!-- ===== 2. EXTERNAL FONTS & ICONS ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- ===== 3. CUSTOM STYLESHEET ===== -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_page/ranking.css') }}">
+</head>
+
+<body>
+
+    <!-- ========================================================= -->
+    <!-- SECTION 1: HEADER & NAVIGATION BAR (Đồng bộ manage_stu)     -->
+    <!-- ========================================================= -->
+    <header class="navbar">
+        <a href="/admin" class="nav-brand">
+            <i class="fa-solid fa-graduation-cap logo-icon"></i>
+            <span>StudyTrack</span>
+        </a>
+        <a href="/pdanalytics" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i> Back to Analytics
+        </a>
+    </header>
+
+    <!-- ========================================================= -->
+    <!-- SECTION 2: MAIN CONTENT CONTAINER                         -->
+    <!-- ========================================================= -->
+    <div class="container">
+
+        <!-- ===== BLOCK A: PAGE HEADER  ===== -->
+        <div class="dashboard-top-header">
+            <div>
+                <span class="badge-tag">Academic Performance Overview</span>
+                <h1 class="page-title">Class Ranking</h1>
+                <p class="page-subtitle">A clear view of exceptional academic achievement across the current semester.
+                </p>
+            </div>
+            <div class="semester-badge-box">
+                <i class="fa-regular fa-calendar"></i>
+                <div class="semester-info">
+                    <span class="sub-label">Selected Semester</span>
+                    <span class="semester-value">{{ semester }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== BLOCK B: RANKED STUDENTS TABLE PANEL ===== -->
+        <div class="card-panel card-dark-container">
+            <div class="panel-header-flex">
+                <div>
+                    <h2 class="panel-title text-white">Ranked students</h2>
+                    <p class="panel-subtitle-small">Ordered by cumulative weighted grade.</p>
+                </div>
+                <span class="badge-pill"><i class="fa-solid fa-trophy text-gold"></i> Merit ranking</span>
+            </div>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Student</th>
+                            <th>Semester</th>
+                            <th>Weighted Grade</th>
+                            <th>Credits</th>
+                            <th>GPA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in ranking_data %}
+                        <tr>
+                            <td>
+                                <span class="rank-badge rank-{{ row.rank | int }}">
+                                    {{ row.rank | int }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="student-cell">
+                                    <b>{{ row.name }}</b>
+                                    <span class="student-id-sub">{{ row.student_id }}</span>
+                                </div>
+                            </td>
+                            <td>{{ row.semester }}</td>
+                            <td>{{ "%.2f"|format(row.total_weighted_grade) }}</td>
+                            <td>{{ row.total_credits }}</td>
+                            <td>
+                                <span class="gpa-highlight">{{ row.gpa }}</span>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="empty-state">
+                                No ranking data available for this semester.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            Rankings are based on total weighted grade and completed credits for the selected semester.
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,347 @@
+{% extends "base/instructor_base.html" %}
+
+{% block title %}
+AI Prediction Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- ====================== -->
+    <!-- Header -->
+    <!-- ====================== -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold">
+                AI Prediction Dashboard
+            </h2>
+
+            <p class="text-muted">
+                {{ course.course_name }}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ====================== -->
+    <!-- Statistics -->
+    <!-- ====================== -->
+
+    <div class="row mb-4">
+
+        <div class="col-md-3">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body text-center">
+
+                    <h6>Total Students</h6>
+
+                    <h2>
+
+                        {{ dashboard|length }}
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card shadow border-success">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-success">
+
+                        Low Risk
+
+                    </h6>
+
+                    <h2>
+
+                        {{ stats["Low Risk"] if "Low Risk" in stats else 0 }}
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card shadow border-warning">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-warning">
+
+                        Medium Risk
+
+                    </h6>
+
+                    <h2>
+
+                        {{ stats["Medium Risk"] if "Medium Risk" in stats else 0 }}
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card shadow border-danger">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-danger">
+
+                        High / Critical
+
+                    </h6>
+
+                    <h2>
+
+                        {{ (stats["High Risk"] if "High Risk" in stats else 0)
+                        +
+                        (stats["Critical"] if "Critical" in stats else 0)
+                        }}
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ====================== -->
+    <!-- Prediction Table -->
+    <!-- ====================== -->
+
+    <div class="card shadow mb-4">
+
+        <div class="card-header bg-primary text-white">
+
+            <h5 class="mb-0">
+
+                Student Prediction
+
+            </h5>
+
+        </div>
+
+        <div class="card-body table-responsive">
+
+            <table class="table table-hover table-bordered align-middle">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>Student ID</th>
+
+                        <th>Prediction Final Grade</th>
+
+                        <th>Risk</th>
+
+                        <th>Alert</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for student in dashboard.itertuples() %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ student.student_id }}
+
+                        </td>
+
+                        <td>
+
+                            <strong>
+
+                                {{ student.predicted_final_grade }}
+
+                            </strong>
+
+                        </td>
+
+                        <td>
+
+                            {% if student.risk_level=="Low Risk" %}
+
+                            <span class="badge bg-success">
+
+                                {{ student.risk_level }}
+
+                            </span>
+
+                            {% elif student.risk_level=="Medium Risk" %}
+
+                            <span class="badge bg-warning text-dark">
+
+                                {{ student.risk_level }}
+
+                            </span>
+
+                            {% elif student.risk_level=="High Risk" %}
+
+                            <span class="badge bg-danger">
+
+                                {{ student.risk_level }}
+
+                            </span>
+
+                            {% else %}
+
+                            <span class="badge bg-dark">
+
+                                {{ student.risk_level }}
+
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            {{ student.alert }}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- ====================== -->
+    <!-- At Risk Students -->
+    <!-- ====================== -->
+
+    <div class="card shadow">
+
+        <div class="card-header bg-danger text-white">
+
+            <h5 class="mb-0">
+
+                Students Requiring Attention
+
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            {% if risk|length==0 %}
+
+            <div class="alert alert-success">
+
+                No students are currently at high risk.
+
+            </div>
+
+            {% else %}
+
+            <table class="table table-bordered">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>Student ID</th>
+
+                        <th>Prediction</th>
+
+                        <th>Risk</th>
+
+                        <th>Recommendation</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for student in risk.itertuples() %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ student.student_id }}
+
+                        </td>
+
+                        <td>
+
+                            {{ student.predicted_final_grade }}
+
+                        </td>
+
+                        <td>
+
+                            <span class="badge bg-danger">
+
+                                {{ student.risk_level }}
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            {{ student.recommendation }}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

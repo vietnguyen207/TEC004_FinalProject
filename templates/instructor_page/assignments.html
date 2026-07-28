@@ -1,0 +1,77 @@
+{% extends "base/instructor_base.html" %}
+
+{% block content %}
+
+<h2>Assignments</h2>
+
+<a href="{{ url_for('instructor.create_assignment_page',
+course_id=course.course_id) }}">
+    + Create Assignment
+</a>
+
+<hr>
+
+<table>
+
+<tr>
+    <th>Name</th>
+    <th>Due Date</th>
+    <th>Max Points</th>
+    <th></th>
+</tr>
+
+{% for assignment in assignments %}
+
+<tr>
+
+<td>
+
+<a href="{{ url_for('instructor.assignment_detail',
+assignment_id=assignment.assignment_id) }}">
+
+{{ assignment.assignment_name }}
+
+</a>
+
+</td>
+
+<td>{{ assignment.due_date }}</td>
+
+<td>{{ assignment.max_points }}</td>
+
+<td>
+
+<a href="{{ url_for('instructor.edit_assignment_page',
+assignment_id=assignment.assignment_id) }}">
+
+Edit
+
+</a>
+
+</td>
+<td>
+   <form
+    method="POST"
+    action="{{ url_for(
+        'instructor.delete_assignment_page',
+        assignment_id=assignment.assignment_id
+    ) }}"
+    style="display:inline;">
+
+    <button
+        type="submit"
+        onclick="return confirm('Delete this assignment?')">
+
+        Delete
+
+    </button>
+
+</form>
+</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

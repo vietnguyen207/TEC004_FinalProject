@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- ===== 1. METADATA & CONFIGURATION ===== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyTrack - AI Prediction Dashboard</title>
+
+    <!-- ===== 2. EXTERNAL FONTS & ICONS ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- ===== 3. CUSTOM STYLESHEET ===== -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_page/al_prediction.css') }}">
+</head>
+
+<body>
+
+    <!-- ========================================================= -->
+    <!-- SECTION 1: HEADER & NAVIGATION BAR (Đồng bộ manage_stu)     -->
+    <!-- ========================================================= -->
+    <header class="navbar">
+        <a href="/admin" class="nav-brand">
+            <i class="fa-solid fa-graduation-cap logo-icon"></i>
+            <span>StudyTrack</span>
+        </a>
+        <a href="/admin" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </header>
+
+    <!-- ========================================================= -->
+    <!-- SECTION 2: MAIN CONTENT CONTAINER                         -->
+    <!-- ========================================================= -->
+    <div class="container">
+
+        <!-- ===== BLOCK A: PAGE HEADER & META INFO ===== -->
+        <div class="dashboard-top-header">
+            <div>
+                <span class="badge-tag">Instructor Intelligence Center</span>
+                <h1 class="page-title">AI Prediction Dashboard</h1>
+                <p class="page-subtitle">Grade Prediction & Risk Analysis</p>
+            </div>
+            <div class="active-course-box">
+                <span class="sub-label">Active Course</span>
+                <div class="course-name">Data Analytics Fundamentals</div>
+                <span class="snapshot-text">Prediction snapshot · Week 8</span>
+            </div>
+        </div>
+
+        <!-- ===== BLOCK B: COURSE HEALTH (SUMMARY CARDS) ===== -->
+        <div class="course-health-header">
+            <h3>Course health at a glance</h3>
+            <span class="assessed-count">{{ school|length }} students assessed</span>
+        </div>
+
+        <div class="summary-grid">
+            <!-- Card 1: Total Students -->
+            <div class="summary-card">
+                <div class="summary-info">
+                    <span class="summary-label">Total students</span>
+                    <h2 class="summary-value">{{ school|length }}</h2>
+                </div>
+                <div class="summary-icon blue-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+            </div>
+
+            <!-- Card 2: Average Prediction -->
+            <div class="summary-card">
+                <div class="summary-info">
+                    <span class="summary-label">Average Prediction</span>
+                    <h2 class="summary-value">
+                        {{ "%.1f"|format(school.predicted_final_grade.mean()) if school|length>0 else 0 }}
+                    </h2>
+                </div>
+                <div class="summary-icon green-icon">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+            </div>
+
+            <!-- Card 3: High Risk -->
+            <div class="summary-card">
+                <div class="summary-info">
+                    <span class="summary-label">High Risk</span>
+                    <h2 class="summary-value">
+                        {{ school[school.risk_level=="High Risk"]|length }}
+                    </h2>
+                </div>
+                <div class="summary-icon yellow-icon">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+            </div>
+
+            <!-- Card 4: Critical / High Critical -->
+            <div class="summary-card">
+                <div class="summary-info">
+                    <span class="summary-label">Critical</span>
+                    <h2 class="summary-value">
+                        {{ school[school.risk_level=="Critical"]|length }}
+                    </h2>
+                </div>
+                <div class="summary-icon red-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== BLOCK C: STUDENT PREDICTIONS TABLE (MODEL OUTLOOK) ===== -->
+        <div class="card-panel">
+            <div class="panel-header-flex">
+                <div>
+                    <span class="card-category">Model Outlook</span>
+                    <h2 class="panel-title">Student predictions</h2>
+                </div>
+                <span class="sort-info">Sorted by predicted final grade</span>
+            </div>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Course</th>
+                            <th>Predicted Final Grade</th>
+                            <th>Risk</th>
+                            <th>Alert</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in school.itertuples() %}
+                        <tr>
+                            <td><b>{{ student.student_id }}</b></td>
+                            <td>{{ student.course_id }}</td>
+                            <td>{{ "%.2f"|format(student.predicted_final_grade) }}</td>
+                            <td>
+                                {% if student.risk_level=="Low Risk" %}
+                                <span class="badge bg-success"><i class="fa-solid fa-circle"></i> {{ student.risk_level
+                                    }}</span>
+                                {% elif student.risk_level=="Medium Risk" %}
+                                <span class="badge bg-warning"><i class="fa-solid fa-circle"></i> {{ student.risk_level
+                                    }}</span>
+                                {% elif student.risk_level=="High Risk" %}
+                                <span class="badge bg-danger"><i class="fa-solid fa-circle"></i> {{ student.risk_level
+                                    }}</span>
+                                {% else %}
+                                <span class="badge bg-dark"><i class="fa-solid fa-circle"></i> {{ student.risk_level
+                                    }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ student.alert }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===== BLOCK D: CRITICAL STUDENTS (PRIORITY INTERVENTIONS) ===== -->
+        <div class="card-panel alert-panel-bg">
+            <div class="panel-header-flex">
+                <div>
+                    <span class="card-category text-danger-custom">Priority Interventions</span>
+                    <h2 class="panel-title">Students requiring attention</h2>
+                    <p class="panel-subtitle-small">Proactive support can make the biggest difference for these
+                        students.</p>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table-clean">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Course</th>
+                            <th>Prediction</th>
+                            <th>Recommendation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in school.itertuples() %}
+                        {% if student.risk_level=="Critical" %}
+                        <tr>
+                            <td><b>{{ student.student_id }}</b> <span class="badge bg-dark-small"><i
+                                        class="fa-solid fa-circle"></i></span></td>
+                            <td>{{ student.course_id }}</td>
+                            <td><span class="prediction-highlight">{{ "%.2f"|format(student.predicted_final_grade) }}
+                                    / 100</span></td>
+                            <td>{{ student.recommendation }}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            Predictions are decision-support signals, not final judgments.
+        </div>
+
+    </div>
+
+</body>
+
+</html>

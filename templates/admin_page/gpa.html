@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- ===== 1. METADATA & CONFIGURATION ===== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyTrack - GPA Analytics</title>
+
+    <!-- ===== 2. EXTERNAL FONTS & ICONS ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- ===== 3. CUSTOM STYLESHEET ===== -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_page/gpa.css') }}">
+</head>
+
+<body>
+
+    <!-- ========================================================= -->
+    <!-- SECTION 1: HEADER & NAVIGATION BAR                        -->
+    <!-- ========================================================= -->
+    <header class="navbar">
+        <a href="/admin" class="nav-brand">
+            <i class="fa-solid fa-graduation-cap logo-icon"></i>
+            <span>StudyTrack</span>
+        </a>
+        <a href="/pdanalytics" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i> Back to Analytics
+        </a>
+    </header>
+
+    <!-- ========================================================= -->
+    <!-- SECTION 2: MAIN CONTENT CONTAINER                         -->
+    <!-- ========================================================= -->
+    <div class="container">
+
+        <!-- ===== BLOCK A: PAGE HEADER ===== -->
+        <div class="dashboard-top-header">
+            <div>
+                <span class="badge-tag"><i class="fa-solid fa-circle"></i> Academic Performance</span>
+                <h1 class="page-title">GPA Analytics</h1>
+                <p class="page-subtitle">Monitor semester performance, grade quality, and student outcomes at a glance.
+                </p>
+            </div>
+        </div>
+
+        <!-- ===== BLOCK B: SUMMARY STATS CARDS ===== -->
+        <div class="summary-grid">
+            <div class="summary-card card-dark-blue">
+                <div class="summary-info">
+                    <span class="summary-label">Average GPA</span>
+                    <h2 class="summary-value">3.50</h2>
+                </div>
+                <div class="summary-icon blue-glow">
+                    <i class="fa-solid fa-chart-bar"></i>
+                </div>
+            </div>
+
+            <div class="summary-card card-dark-green">
+                <div class="summary-info">
+                    <span class="summary-label">Highest GPA</span>
+                    <h2 class="summary-value">3.68</h2>
+                </div>
+                <div class="summary-icon green-glow">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+            </div>
+
+            <div class="summary-card card-dark-purple">
+                <div class="summary-info">
+                    <span class="summary-label">Students shown</span>
+                    <h2 class="summary-value">{{ gpa_data|length }}</h2>
+                </div>
+                <div class="summary-icon purple-glow">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== BLOCK C: STUDENT GPA RECORDS TABLE ===== -->
+        <div class="card-panel card-dark-container">
+            <div class="panel-header-flex">
+                <div>
+                    <h2 class="panel-title text-white">Student GPA records</h2>
+                    <p class="panel-subtitle-small">Weighted grade totals and credit load by completed semester.</p>
+                </div>
+                <span class="badge-pill">{{ gpa_data|length }} records</span>
+            </div>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Semester</th>
+                            <th>Total Weighted Grade</th>
+                            <th>Total Credits</th>
+                            <th>GPA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in gpa_data %}
+                        <tr>
+                            <td><b>{{ row.student_id }}</b></td>
+                            <td>{{ row.name }}</td>
+                            <td>{{ row.semester }}</td>
+                            <td>{{ "%.2f"|format(row.total_weighted_grade) }}</td>
+                            <td>{{ row.total_credits }}</td>
+                            <td>
+                                <span class="gpa-badge">{{ row.gpa }}</span>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="empty-state">
+                                No GPA records available.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

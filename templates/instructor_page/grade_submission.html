@@ -1,0 +1,64 @@
+{% extends "base/instructor_base.html" %}
+
+{% block content %}
+
+<h2>Grade Submission</h2>
+
+<p>
+
+Student:
+
+{{ submission.student_id }}
+
+</p>
+
+<p>
+
+Submitted:
+
+{{ submission.submit_time }}
+
+</p>
+
+
+
+Download File
+
+</a>
+
+<hr>
+
+<form method="POST">
+
+<label>Score</label>
+
+<input
+type="number"
+step="0.1"
+name="score"
+value="{{ submission.score }}">
+
+<br><br>
+
+<label>Feedback</label>
+
+<textarea
+name="feedback"
+rows="5"
+cols="60">
+
+{{ submission.feedback }}
+
+</textarea>
+
+<br><br>
+
+<button>
+
+Save Grade
+
+</button>
+
+</form>
+
+{% endblock %}

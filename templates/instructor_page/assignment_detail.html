@@ -1,0 +1,80 @@
+{% extends "base/instructor_base.html" %}
+
+{% block content %}
+
+<h2>{{ assignment.assignment_name }}</h2>
+
+<p>
+
+Due:
+
+{{ assignment.due_date }}
+
+</p>
+
+<p>
+
+Max Points:
+
+{{ assignment.max_points }}
+
+</p>
+
+<hr>
+
+<h3>Student Submissions</h3>
+
+<table>
+
+<tr>
+
+<th>Student</th>
+
+<th>Submit Time</th>
+
+<th>Score</th>
+
+<th></th>
+
+</tr>
+
+{% for submission in submissions %}
+
+<tr>
+
+<td>
+
+{{ submission.student_id }}
+
+</td>
+
+<td>
+
+{{ submission.submit_time }}
+
+</td>
+
+<td>
+
+{{ submission.score }}
+
+</td>
+
+<td>
+
+<a href="{{ url_for('instructor.grade_submission_page',
+submission_id=submission.submission_id) }}">
+
+Grade
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

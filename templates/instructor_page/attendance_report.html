@@ -1,0 +1,49 @@
+<h2>Attendance Report</h2>
+
+<table border="1">
+
+<tr>
+
+<th>Student ID</th>
+
+<th>Name</th>
+
+<th>Attendance %</th>
+
+<th>Status</th>
+
+</tr>
+
+{% for row in report %}
+
+<tr>
+
+<td>{{ row.student_id }}</td>
+
+<td>{{ row.name }}</td>
+
+<td>{{ row.attendance_rate }}%</td>
+
+<td>
+
+{% if row.attendance_rate >= 80 %}
+
+Excellent
+
+{% elif row.attendance_rate >=60 %}
+
+Good
+
+{% else %}
+
+Warning
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>

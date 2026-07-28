@@ -1,0 +1,271 @@
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    /* Font chữ hiện đại, dễ đọc */
+
+    /* NỀN XANH THUẦN CSS */
+    background: radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.25) 0%, transparent 45%),
+        radial-gradient(circle at 15% 75%, rgba(37, 99, 235, 0.3) 0%, transparent 50%),
+        linear-gradient(135deg, #0a0f1d 0%, #071126 50%, #040814 100%);
+    background-attachment: fixed;
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+}
+
+/* ===== NAVBAR ===== */
+/* Khối chứa logo và các liên kết */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 40px;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Logo */
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2c6ef8;
+    display: flex;
+    align-items: center;
+}
+
+/* Biểu tượng logo */
+.logo-icon {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+/* Khối chứa các liên kết bên phải */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    /* Khoảng cách đều giữa các mục menu */
+}
+
+/* Các link chữ thường */
+.nav-links {
+    text-decoration: none;
+    /* Bỏ gạch chân */
+    color: #4b5563;
+    /* Màu xám hiện đại */
+    font-weight: 600;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.nav-links:hover {
+    color: #1458ec;
+    /* Đổi sang màu xanh khi di chuột vào */
+}
+
+/* Nút LOGIN dạng hình tròn viên thuốc */
+.login-btn-nav {
+    text-decoration: none;
+    /* Bỏ gạch chân */
+    color: #ffffff !important;
+    background: #1458ec;
+    padding: 8px 22px;
+    /* Tạo khoảng không rộng rãi bên trong nút */
+    border-radius: 50px;
+    /* Bo tròn full nút */
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid #1458ec;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.login-btn-nav:hover {
+    background: #0f46c7;
+    border-color: #0f46c7;
+    box-shadow: 0 4px 12px rgba(20, 88, 236, 0.25);
+    /* Tạo bóng mờ nhẹ khi di chuột */
+}
+
+/* ===== MAIN CONTAINER ===== */
+.main-container {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* HERO LEFT */
+.hero-left h1 {
+    font-size: 50px;
+    font-weight: 800;
+    color: #ffffff !important;
+    /* Trắng sáng nổi bật */
+    line-height: 1.1;
+    margin-bottom: 16px;
+
+    /* Đổ bóng phát sáng xanh Cyan nhẹ giúp chữ cực kỳ nét */
+    text-shadow: 0 0 15px rgba(56, 189, 248, 0.6),
+        0 4px 12px rgba(0, 0, 0, 0.8);
+}
+
+.hero-sub {
+    font-size: 18px;
+    color: #38bdf8 !important;
+    /* Xanh Cyan sáng */
+    font-weight: 500;
+    text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+}
+
+/* LOGIN BOX */
+.login-box {
+    background: white;
+    width: 100%;
+    max-width: 400px;
+    padding: 40px 32px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.login-box h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+}
+
+.login-sub {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 24px;
+}
+
+/* FORM FIELDS */
+.input-field {
+    margin-bottom: 18px;
+}
+
+.input-field input,
+.input-field select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 15px;
+    background: #fafbfc;
+    color: #1a1a1a;
+    outline: none;
+    transition: 0.2s;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.input-field input:focus,
+.input-field select:focus {
+    border-color: #2c6ef8;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(44, 110, 248, 0.1);
+}
+
+.input-field label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.input-field input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 15px;
+    background: #fafbfc;
+    outline: none;
+    transition: 0.2s;
+    font-family: inherit;
+}
+
+.input-field input:focus {
+    border-color: #2c6ef8;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(44, 110, 248, 0.1);
+}
+
+/* OPTIONS ROW */
+.row-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 14px 0 24px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.checkbox-label input {
+    width: 16px;
+    height: 16px;
+    accent-color: #2c6ef8;
+}
+
+/* BUTTON */
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background: #2c6ef8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-login:hover {
+    background: #1a5ad4;
+}
+
+/* ERROR MESSAGE */
+.error-msg {
+    color: #b91c1c;
+    background: #fee9e9;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-top: 16px;
+    border-left: 4px solid #b91c1c;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .hero-left {
+        text-align: center;
+    }
+}

@@ -1,0 +1,320 @@
+/* ========================================================= */
+/* 1. CSS VARIABLES      */
+/* ========================================================= */
+:root {
+    --bg-main: #0b1329;
+    --card-dark-bg: #111e38;
+    --card-dark-alt: #112d23;
+    --card-dark-purple: #1e1b38;
+    --border-dark: #1e293b;
+    --text-main: #ffffff;
+    --text-muted: #94a3b8;
+    --accent-gold: #fbbf24;
+    --accent-blue: #38bdf8;
+    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================================= */
+/* 2. GLOBAL RESET & BASE STYLES                             */
+/* ========================================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    min-height: 100vh;
+}
+
+/* ========================================================= */
+/* 3. NAVIGATION BAR STYLES                                  */
+/* ========================================================= */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 32px;
+    background: var(--card-dark-bg);
+    border-bottom: 1px solid var(--border-dark);
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: #38bdf8;
+    font-weight: 800;
+    font-size: 1.25rem;
+}
+
+.logo-icon {
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.back-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-dark);
+    transition: all 0.2s;
+}
+
+.back-btn:hover {
+    background-color: var(--border-dark);
+    color: #ffffff;
+}
+
+/* ========================================================= */
+/* 4. MAIN LAYOUT & HEADER SECTION                           */
+/* ========================================================= */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+.dashboard-top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    background: var(--card-dark-bg);
+    padding: 1.5rem 2rem;
+    border-radius: 1rem;
+    border: 1px solid var(--border-dark);
+    box-shadow: var(--shadow);
+}
+
+.badge-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #38bdf8;
+    background-color: rgba(56, 189, 248, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+}
+
+.badge-tag i {
+    font-size: 0.45rem;
+}
+
+.page-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 0.2rem;
+}
+
+.page-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* Semester View Dropdown Box */
+.semester-view-box {
+    background-color: #0f172a;
+    border: 1px solid var(--border-dark);
+    padding: 0.6rem 1rem;
+    border-radius: 0.75rem;
+}
+
+.sub-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.form-select-dark {
+    background: transparent;
+    color: #ffffff;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+}
+
+.form-select-dark option {
+    background: #0f172a;
+    color: #ffffff;
+}
+
+/* ========================================================= */
+/* 5. SUMMARY STATS CARDS GRID                               */
+/* ========================================================= */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.summary-card {
+    border-radius: 1rem;
+    padding: 1.75rem;
+    border: 1px solid var(--border-dark);
+    box-shadow: var(--shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-dark-blue {
+    background: linear-gradient(135deg, #111e38, #172554);
+}
+
+.card-dark-green {
+    background: linear-gradient(135deg, #112d23, #064e3b);
+}
+
+.card-dark-purple {
+    background: linear-gradient(135deg, #1e1b38, #31104a);
+}
+
+.summary-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.summary-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.summary-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.blue-glow {
+    background-color: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+}
+
+.green-glow {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+}
+
+.purple-glow {
+    background-color: rgba(168, 85, 247, 0.15);
+    color: #c084fc;
+}
+
+/* ========================================================= */
+/* 6. CARD PANEL & TABLE STYLING                             */
+/* ========================================================= */
+.card-dark-container {
+    background: var(--card-dark-bg);
+    border: 1px solid var(--border-dark);
+    border-radius: 1rem;
+    padding: 1.75rem;
+    box-shadow: var(--shadow);
+}
+
+.panel-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.panel-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.panel-subtitle-small {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+}
+
+.badge-pill {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-dark);
+    padding: 0.3rem 0.8rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th,
+td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-dark);
+    font-size: 0.9rem;
+}
+
+th {
+    background-color: #0f172a;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+tr:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.gpa-badge {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    padding: 0.25rem 0.65rem;
+    border-radius: 0.4rem;
+    font-weight: 700;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+}

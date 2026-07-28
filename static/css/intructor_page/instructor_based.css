@@ -1,0 +1,168 @@
+/* ========================================================= */
+/* 1. CSS VARIABLES (Đồng bộ với theme Xanh dương & Trắng)   */
+/* ========================================================= */
+:root {
+    --bg-main: rgb(15, 23, 42);
+    /* Nền trang chính (Xanh đen đậm hiện đại) */
+    --bg-sidebar: rgb(30, 41, 59);
+    /* Nền sidebar & card */
+    --text-primary: rgb(248, 250, 252);
+    /* Chữ trắng sáng */
+    --text-muted: rgb(148, 163, 184);
+    /* Chữ xám mờ */
+    --accent-color: rgb(56, 189, 248);
+    /* Xanh dương sáng (Sky blue) chủ đạo */
+    --accent-hover: rgb(125, 211, 252);
+    /* Xanh dương nhạt khi hover */
+    --border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ========================================================= */
+/* 2. GLOBAL RESET                                           */
+/* ========================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ========================================================= */
+/* 3. SIDEBAR STYLES                                         */
+/* ========================================================= */
+.sidebar {
+    width: 260px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    position: fixed;
+    height: 100vh;
+}
+
+/* ========================================================= */
+/* Phần Logo / Sidebar Brand                                 */
+/* ========================================================= */
+.sidebar-brand {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    /* Chữ Study màu trắng */
+    margin-bottom: 2.5rem;
+    text-align: center;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    display: block;
+    transition: opacity 0.2s ease;
+}
+
+.sidebar-brand:hover {
+    opacity: 0.85;
+}
+
+.sidebar-brand span {
+    color: var(--accent-color);
+    /* Chữ Track màu xanh dương sáng */
+}
+
+/* Icon ở logo */
+.sidebar-brand .logo-icon {
+    color: var(--accent-color);
+    margin-right: 0.25rem;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1;
+}
+
+.sidebar-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    padding: 0.875rem 1rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+    background-color: rgba(56, 189, 248, 0.12);
+    /* Hiệu ứng nền xanh dương nhạt khi active/hover */
+    color: var(--accent-hover);
+}
+
+.sidebar-nav a svg {
+    width: 20px;
+    height: 20px;
+    opacity: 0.8;
+}
+
+.sidebar-divider {
+    border: 0;
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 1.5rem 0;
+}
+
+.logout-btn {
+    color: rgb(248, 113, 113) !important;
+}
+
+.logout-btn:hover {
+    background-color: rgba(248, 113, 113, 0.1) !important;
+}
+
+/* ========================================================= */
+/* 4. MAIN CONTENT AREA                                      */
+/* ========================================================= */
+.main-wrapper {
+    flex: 1;
+    margin-left: 260px;
+    display: flex;
+    flex-direction: column;
+}
+
+.topbar {
+    padding: 2rem 3rem 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.welcome-text {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg-sidebar);
+    padding: 0.5rem 1.25rem;
+    border-radius: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.welcome-text span {
+    color: var(--accent-hover);
+    font-weight: 700;
+}
+
+.content-area {
+    padding: 1rem 3rem 3rem;
+    flex: 1;
+}

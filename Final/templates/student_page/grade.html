@@ -1,0 +1,272 @@
+{% extends "base/student_base.html" %}
+
+{% block title %}
+Grades
+{% endblock %}
+
+{% block content %}
+
+{% include "student_page/nav/course_nav.html" %}
+
+<div class="container mt-4">
+
+    <h2>My Grades</h2>
+
+    <hr>
+
+    <div class="card mb-4">
+
+        <div class="card-header">
+
+            <strong>Course Information</strong>
+
+        </div>
+
+        <div class="card-body">
+
+            <p>
+                <strong>Course ID :</strong>
+                {{ course.course_id }}
+            </p>
+
+            <p>
+                <strong>Course Name :</strong>
+                {{ course.course_name }}
+            </p>
+
+            <p>
+                <strong>Semester :</strong>
+                {{ course.semester }}
+            </p>
+
+            <p>
+                <strong>Credits :</strong>
+                {{ course.credits }}
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-3">
+
+            <div class="card text-center">
+
+                <div class="card-header">
+                    Assignment
+                </div>
+
+                <div class="card-body">
+
+                    <h3>
+
+                        {{ "%.2f"|format(grades.assignment or 0) }}
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card text-center">
+
+                <div class="card-header">
+                    Midterm
+                </div>
+
+                <div class="card-body">
+
+                    <h3>
+
+                        {{ "%.2f"|format(grades.midterm or 0) }}
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card text-center">
+
+                <div class="card-header">
+                    Final
+                </div>
+
+                <div class="card-body">
+
+                    <h3>
+
+                        {{ "%.2f"|format(grades.final or 0) }}
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card text-center border-primary">
+
+                <div class="card-header bg-primary text-white">
+
+                    Final Grade
+
+                </div>
+
+                <div class="card-body">
+
+                    <h2>
+
+                        {{ "%.2f"|format(grades.final_grade or 0) }}
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <table class="table table-bordered table-striped">
+
+        <thead class="table-dark">
+
+            <tr>
+
+                <th>Assessment</th>
+
+                <th>Score</th>
+
+                <th>Status</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+
+                <td>Assignment</td>
+
+                <td>{{ "%.2f"|format(grades.assignment or 0) }}</td>
+
+                <td>
+
+                    {% if grades.assignment is not none %}
+
+                        Completed
+
+                    {% else %}
+
+                        Pending
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>Midterm</td>
+
+                <td>{{ "%.2f"|format(grades.midterm or 0) }}</td>
+
+                <td>
+
+                    {% if grades.midterm is not none %}
+
+                        Completed
+
+                    {% else %}
+
+                        Pending
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>Final</td>
+
+                <td>{{ "%.2f"|format(grades.final or 0) }}</td>
+
+                <td>
+
+                    {% if grades.final is not none %}
+
+                        Completed
+
+                    {% else %}
+
+                        Pending
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <div class="mt-4">
+
+        {% if grades.final_grade is not none %}
+
+            {% if grades.final_grade >= 60 %}
+
+                <div class="alert alert-success">
+
+                    <strong>PASS</strong>
+
+                </div>
+
+            {% else %}
+
+                <div class="alert alert-danger">
+
+                    <strong>FAIL</strong>
+
+                </div>
+
+            {% endif %}
+
+        {% endif %}
+
+    </div>
+
+    <a class="btn btn-primary"
+       href="{{ url_for('student.grade_report_page',
+                        course_id=course.course_id) }}">
+
+        View Grade Report
+
+    </a>
+
+</div>
+
+
+{% endblock %}

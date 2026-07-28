@@ -1,0 +1,54 @@
+{% extends "instructor_page/course_dashboard.html" %}
+
+{% block content %}
+
+<h2>Grade Percentage</h2>
+
+{% if error %}
+<p style="color:red">{{ error }}</p>
+{% endif %}
+
+<form method="POST">
+
+Assignment %
+
+<br>
+
+<input
+type="number"
+name="assignment_weight"
+value="{{ weight.assignment_weight }}">
+
+<br><br>
+
+Midterm %
+
+<br>
+
+<input
+type="number"
+name="midterm_weight"
+value="{{ weight.midterm_weight }}">
+
+<br><br>
+
+Final %
+
+<br>
+
+<input
+type="number"
+name="final_weight"
+value="{{ weight.final_weight }}">
+
+<br><br>
+
+<button type="submit">
+
+Save
+
+</button>
+
+</form>
+
+{% endblock %}  

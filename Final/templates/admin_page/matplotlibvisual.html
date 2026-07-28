@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>
+        Visualization Reports
+    </title>
+
+</head>
+
+<body>
+
+    <h1>
+
+        Visualization Dashboard
+
+    </h1>
+
+    <hr>
+
+    <h2>
+
+        Grade Distribution
+
+    </h2>
+
+    <img
+        src="/report_gd/grade_distribution"
+        width="700"
+    >
+
+    <hr>
+
+    <h2>
+
+        Course Difficulty
+
+    </h2>
+
+    <img
+src="/report_cd/course_difficulty?time={{ moment }}">
+
+    <hr>
+
+    <h2>
+
+        GPA Trend
+
+    </h2>
+
+    <form
+        onsubmit="
+        document.getElementById(
+        'trend'
+        ).src=
+        '/report_gpa/gpa_trend/'
+        +
+        student.value;
+
+        return false;
+        "
+    >
+
+        <input
+            type="text"
+            id="student"
+            placeholder="Student ID"
+        >
+
+        <button>
+
+            Generate
+
+        </button>
+
+    </form>
+
+    <img
+        id="trend"
+        width="700"
+    >
+
+    <hr>
+
+    <h2>
+
+        Radar Chart
+
+    </h2>
+
+    <form
+        onsubmit="
+        document.getElementById(
+        'radar'
+        ).src=
+        '/report_r/radar/'
+        +
+        student2.value;
+
+        return false;
+        "
+    >
+
+        <input
+            type="text"
+            id="student2"
+            placeholder="Student ID"
+        >
+
+        <button>
+
+            Generate
+
+        </button>
+
+    </form>
+
+    <img
+        id="radar"
+        width="700"
+    >
+
+</body>
+
+</html>

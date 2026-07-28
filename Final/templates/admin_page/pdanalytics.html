@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>SP4 Analytics</title>
+
+</head>
+
+<body>
+
+    <h1>
+        Analytics Dashboard
+    </h1>
+
+    <hr>
+
+    <h2>
+        GPA Calculation
+    </h2>
+
+    <a href="/analytics/gpa">
+
+        View GPA Table
+
+    </a>
+
+    <hr>
+
+    <h2>
+        Class Ranking
+    </h2>
+
+    <form
+        action=""
+        onsubmit="
+        window.location=
+        '/analytics/ranking/'
+        +
+        semester.value;
+        return false;
+        "
+    >
+
+        <input
+            type="text"
+            id="semester"
+            placeholder="Semester"
+            required
+        >
+
+        <button>
+
+            Show Ranking
+
+        </button>
+
+    </form>
+
+
+</body>
+
+</html>

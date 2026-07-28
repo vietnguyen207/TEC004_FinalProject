@@ -1,0 +1,56 @@
+{% extends "base/instructor_base.html" %}
+
+{% block content %}
+
+<h1>My Courses</h1>
+
+<table border="1">
+
+<tr>
+
+<th>ID</th>
+
+<th>Name</th>
+
+<th>Credits</th>
+
+<th>Semester</th>
+
+<th>Sessions</th>
+
+<th></th>
+
+</tr>
+
+{% for c in courses %}
+
+<tr>
+
+<td>{{ c.course_id }}</td>
+
+<td>{{ c.course_name }}</td>
+
+<td>{{ c.credits }}</td>
+
+<td>{{ c.semester }}</td>
+
+<td>{{ c.sessions }}</td>
+
+<td>
+
+<a href="{{ url_for(
+'instructor.course_dashboard',
+course_id=c.course_id
+) }}">
+Open
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+<h2>Attendance History</h2>
+
+<table border="1">
+
+<tr>
+
+<th>Session</th>
+
+<th>Student</th>
+
+<th>Status</th>
+
+<th>Date</th>
+
+</tr>
+
+{% for row in history %}
+
+<tr>
+
+<td>{{ row.session_number }}</td>
+
+<td>{{ row.name }}</td>
+
+<td>{{ row.status }}</td>
+
+<td>{{ row.date }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>

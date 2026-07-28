@@ -1,0 +1,111 @@
+{% extends "base/student_base.html" %}
+
+{% block title %}
+
+Analytics
+
+{% endblock %}
+
+{% block content %}
+
+<h2>
+
+Learning Analytics
+
+</h2>
+
+<div class="card">
+
+Average Attendance
+
+<h1>
+
+{{ attendance }}%
+
+</h1>
+
+</div>
+
+<div class="card">
+
+Average Grade
+
+<h1>
+
+{{ grades[0] }}
+
+</h1>
+
+</div>
+
+<div class="card">
+
+Highest Grade
+
+<h1>
+
+{{ grades[1] }}
+
+</h1>
+
+</div>
+
+<div class="card">
+
+Lowest Grade
+
+<h1>
+
+{{ grades[2] }}
+
+</h1>
+
+</div>
+
+<h2>
+
+Semester GPA
+
+</h2>
+
+<table>
+
+<tr>
+
+<th>
+
+Semester
+
+</th>
+
+<th>
+
+GPA
+
+</th>
+
+</tr>
+
+{% for row in gpa %}
+
+<tr>
+
+<td>
+
+{{ row.semester }}
+
+</td>
+
+<td>
+
+{{ row.gpa }}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

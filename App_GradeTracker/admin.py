@@ -1167,7 +1167,7 @@ def matplotlibvisual():
 
 
 @admin_bp.route(
-    "/prediction"
+    "/prediction_dashboard"
 )
 @login_required
 @admin_required

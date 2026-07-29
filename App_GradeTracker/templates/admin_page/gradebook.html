@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyTrack - GradeBook</title>
+
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Stylesheet cho GradeBook -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_page/gradebook.css') }}">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <a href="/admin" class="nav-brand">
+            <i class="fa-solid fa-graduation-cap logo-icon"></i>
+            <span>StudyTrack</span>
+        </a>
+        <a href="/admin" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+
+        <!-- PAGE HEADER -->
+        <div class="page-header" style="display: flex; align-items: center; gap: 15px;">
+            <img src="{{ url_for('static', filename='gif image/Studying College Life GIF by University of Florida (1).gif') }}"
+                alt="Studying Animation" width="100">
+            <h1 class="page-title">GradeBook</h1>
+        </div>
+
+        <!-- ADD GRADE FORM PANEL -->
+        <div class="card-panel">
+            <h2 class="panel-title"><i class="fa-solid fa-star-half-stroke"></i> Add / Update Grade</h2>
+
+            <form method="POST" class="form-grid">
+
+                <!-- Select Student -->
+                <div class="form-group">
+                    <label>Student</label>
+                    <select name="student_id" class="form-control" required>
+                        <option value="" disabled selected>-- Select Student --</option>
+                        {% for s in students %}
+                        <option value="{{s[0]}}">
+                            {{s[1]}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Select Course -->
+                <div class="form-group">
+                    <label>Course</label>
+                    <select name="course_id" class="form-control" required>
+                        <option value="" disabled selected>-- Select Course --</option>
+                        {% for c in courses %}
+                        <option value="{{c[0]}}">
+                            {{c[1]}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Assignment Score -->
+                <div class="form-group">
+                    <label>Assignment</label>
+                    <input type="number" step="0.01" name="assignment" class="form-control" placeholder="0 - 100"
+                        required>
+                </div>
+
+                <!-- Midterm Score -->
+                <div class="form-group">
+                    <label>Midterm</label>
+                    <input type="number" step="0.01" name="midterm" class="form-control" placeholder="0 - 100" required>
+                </div>
+
+                <!-- Final Score -->
+                <div class="form-group">
+                    <label>Final</label>
+                    <input type="number" step="0.01" name="final" class="form-control" placeholder="0 - 100" required>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-submit">
+                    <i class="fa-solid fa-floppy-disk"></i> Save Grade
+                </button>
+            </form>
+        </div>
+
+        <!-- GRADES TABLE PANEL -->
+        <div class="card-panel">
+            <h2 class="panel-title"><i class="fa-solid fa-table-list"></i> Grades Record</h2>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Course</th>
+                            <th>Assignment</th>
+                            <th>Midterm</th>
+                            <th>Final</th>
+                            <th>Subject Grade</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for g in grades %}
+                        <tr>
+                            <td><b>{{g[1]}}</b></td>
+                            <td>{{g[2]}}</td>
+                            <td>{{g[3]}}</td>
+                            <td>{{g[4]}}</td>
+                            <td>{{g[5]}}</td>
+                            <td>{{g[6]}}</td>
+                            <td><b>{{g[7]}}</b></td>
+                            <td>
+                                <!-- Sử dụng class CSS kết hợp Jinja2 thay vì viết inline style -->
+                                <span
+                                    class="badge {% if g[8] == 'Passed' %}badge-passed{% else %}badge-failed{% endif %}">
+                                    {{g[8]}}
+                                </span>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="8" class="empty-state">
+                                No grades recorded yet.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

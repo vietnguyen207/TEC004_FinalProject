@@ -1,0 +1,88 @@
+{% extends "base/instructor_base.html" %}
+
+{% block content %}
+<div class="attendance-history-container">
+    
+    <!-- PAGE HEADER -->
+    <div class="page-header flex-between">
+        <div>
+            <span class="badge-tag">
+                <i class="fa-solid fa-clock-rotate-left"></i> Attendance Logs
+            </span>
+            <h1 class="page-title">Attendance History</h1>
+            <p class="page-subtitle">Detailed audit log of past attendance records for this course.</p>
+        </div>
+
+        <a href="{{ url_for('instructor.course_dashboard', course_id=course.course_id if course else course_id) }}" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    <!-- MAIN PANEL CARD -->
+    <div class="panel-card">
+        
+        <!-- Panel Header -->
+        <div class="panel-header">
+            <div class="panel-title-group">
+                <h2>Recorded Logs</h2>
+            </div>
+            <div class="students-count">
+                <i class="fa-solid fa-list-check"></i>
+                <span><strong>{{ history|length }}</strong> Entry Record(s)</span>
+            </div>
+        </div>
+
+        <!-- Table Responsive Container -->
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">Session</th>
+                        <th style="width: 40%;">Student Name</th>
+                        <th style="width: 25%;">Status</th>
+                        <th style="width: 20%;" class="text-right">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in history %}
+                    <tr>
+                        <td>
+                            <span class="session-badge">Session {{ row.session_number }}</span>
+                        </td>
+                        <td class="course-name-cell">{{ row.name }}</td>
+                        <td>
+                            {% if row.status == 'Present' %}
+                            <span class="status-badge badge-completed">
+                                <i class="fa-solid fa-circle-check"></i> Present
+                            </span>
+                            {% elif row.status == 'Late' %}
+                            <span class="status-badge badge-good">
+                                <i class="fa-solid fa-clock"></i> Late
+                            </span>
+                            {% else %}
+                            <span class="status-badge badge-pending">
+                                <i class="fa-solid fa-circle-xmark"></i> Absent
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td class="text-right">
+                            <span class="date-text">
+                                <i class="fa-regular fa-calendar"></i> {{ row.attendance_date }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="empty-state">
+                            <i class="fa-solid fa-folder-open"></i>
+                            <p>No attendance history records found.</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

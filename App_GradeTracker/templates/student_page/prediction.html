@@ -1,0 +1,107 @@
+{% extends "base/student_base.html" %}
+
+{% block title %}
+AI Grade Prediction
+{% endblock %}
+
+{% block content %}
+<!-- Nhúng file CSS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+<div class="prediction-wrapper">
+    <!-- Header -->
+    <div class="page-header">
+        <h1 class="page-title">🤖 AI Grade Prediction</h1>
+        <div class="course-subtitle">{{ course.course_name }}</div>
+    </div>
+
+    {% if result %}
+    <!-- Prediction Summary Card -->
+    <div class="ai-card">
+        <h2 class="card-heading primary">📊 Prediction Summary</h2>
+        
+        <div class="summary-grid">
+            <!-- Predicted Grade -->
+            <div class="stat-box">
+                <div class="stat-label">Predicted Grade</div>
+                <div class="stat-value-large">{{ result.predicted_final_grade }}</div>
+            </div>
+
+            <!-- Risk Level -->
+            <div class="stat-box">
+                <div class="stat-label">Risk Level</div>
+                <div style="margin-top: 8px;">
+                    {% if result.risk_level == "Low Risk" %}
+                        <span class="badge-risk badge-low">Low Risk</span>
+                    {% elif result.risk_level == "Medium Risk" %}
+                        <span class="badge-risk badge-medium">Medium Risk</span>
+                    {% elif result.risk_level == "High Risk" %}
+                        <span class="badge-risk badge-high">High Risk</span>
+                    {% else %}
+                        <span class="badge-risk badge-default">{{ result.risk_level }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- AI Progress Bar -->
+            <div class="stat-box" style="grid-column: span 2;">
+                <div class="stat-label" style="text-align: left; margin-bottom: 12px;">Predicted Final Grade</div>
+                <div class="progress-container">
+                    <div class="custom-progress">
+                        <div class="custom-progress-bar" style="width: {{ result.predicted_final_grade | default(0) }}%;">
+                            {{ result.predicted_final_grade }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Card -->
+    <div class="ai-card">
+        <h2 class="card-heading alert">⚠️ Alert</h2>
+        <div class="alert-box">
+            {{ result.alert }}
+        </div>
+    </div>
+
+    <!-- Recommendation Card -->
+    <div class="ai-card">
+        <h2 class="card-heading recommendation">💡 Recommendation</h2>
+        <ul class="recommendation-list">
+            <li>{{ result.recommendation }}</li>
+        </ul>
+    </div>
+
+    <!-- Current Performance Table Card -->
+    <div class="ai-card">
+        <h2 class="card-heading performance">📈 Current Performance Breakdown</h2>
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Assignment</th>
+                        <th>Midterm</th>
+                        <th>Attendance</th>
+                        <th>Homework Completion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ result.assignment }}</td>
+                        <td>{{ result.midterm }}</td>
+                        <td>{{ result.attendance_rate }}%</td>
+                        <td>{{ result.completion_rate }}%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% else %}
+    <div class="empty-state">
+        <strong>Notice:</strong> No prediction data is currently available for this course.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

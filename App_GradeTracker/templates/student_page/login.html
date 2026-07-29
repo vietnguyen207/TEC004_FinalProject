@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- ===== METADATA & TITLE ===== -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyTrack | Login</title>
+
+    <!-- ===== EXTERNAL RESOURCES & STYLES ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+
+    <!-- ========================================================= -->
+    <!-- 1. NAVIGATION BAR                                         -->
+    <!-- ========================================================= -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap logo-icon"></i>
+            StudyTrack
+        </div>
+
+        <div class="nav-right">
+            <a href="#" class="nav-links">HOME</a>
+            <a href="#" class="login-btn-nav">LOGIN</a>
+        </div>
+    </nav>
+
+    <!-- ========================================================= -->
+    <!-- 2. MAIN CONTAINER                                         -->
+    <!-- ========================================================= -->
+    <div class="main-container">
+
+        <!-- SECTION A: HERO BANNER (LEFT) -->
+        <div class="hero-left">
+            <h1>ACHIEVE<br />YOUR POTENTIAL</h1>
+            <p class="hero-sub">platform for online learning</p>
+        </div>
+
+        <!-- SECTION B: LOGIN FORM CARD (RIGHT) -->
+        <div class="login-box">
+            <h2>Log in</h2>
+            <p class="login-sub">Welcome back! Enter your information.</p>
+
+            <!-- Backend Route Handling: POST Method -->
+            <form method="POST">
+
+                <!-- Role Selection -->
+                <div class="input-field">
+                    <label for="role">Role</label>
+                    <select id="role" name="role" required>
+                        <option value="" disabled selected>-- Choose your role --</option>
+                        <option value="admin">Admin</option>
+                        <option value="instructor">Instructor</option>
+                        <option value="student">Student</option>
+                    </select>
+                </div>
+
+                <!-- Username Input -->
+                <div class="input-field">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Username or email" required />
+                </div>
+
+                <!-- Password Input -->
+                <div class="input-field">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Password" required />
+                </div>
+
+                <!-- Auxiliary Form Options -->
+                <div class="row-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="remember" required /> Remember Me
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-login">Login</button>
+
+                <!-- SECTION C: ERROR NOTIFICATION -->
+                {% if error %}
+                <div class="error-msg">❌ {{ error }}</div>
+                {% endif %}
+
+            </form>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+{% extends "base/instructor_base.html" %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Header Section -->
+    <div class="page-header">
+        <h1 class="page-title">Instructor Dashboard</h1>
+        <p class="page-subtitle">Overview of your teaching assignments and active students.</p>
+    </div>
+
+    <!-- Stats Grid (Dạng Card bo góc giống Student Profile) -->
+    <div class="stats-grid">
+        <!-- Card 1: Total Courses -->
+        <div class="stat-card">
+            <div class="stat-icon-wrapper blue-icon">
+                <i class="fa-solid fa-book-bookmark"></i>
+            </div>
+            <div class="stat-details">
+                <span class="stat-label">TOTAL COURSES</span>
+                <h2 class="stat-value">{{ total_course }}</h2>
+            </div>
+        </div>
+
+        <!-- Card 2: Total Students -->
+        <div class="stat-card">
+            <div class="stat-icon-wrapper cyan-icon">
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <div class="stat-details">
+                <span class="stat-label">TOTAL STUDENTS</span>
+                <h2 class="stat-value">{{ total_student }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

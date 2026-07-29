@@ -1,0 +1,180 @@
+{% extends "base/student_base.html" %}
+
+{% block title %}Grades - {{ course.course_name }}{% endblock %}
+
+{% block content %}
+<!-- Include Course Navigation Header -->
+{% include "student_page/nav/course_nav.html" %}
+
+<div class="grades-container">
+    
+    <!-- Top Grade Summary Cards (4 Metric Cards Grid) -->
+    <div class="grades-summary-grid">
+        <!-- Assignment Card -->
+        <div class="grade-card">
+            <div class="grade-card-icon text-cyan">
+                <i class="fa-solid fa-pen-ruler"></i>
+            </div>
+            <div class="grade-card-info">
+                <span class="grade-card-label">Assignment</span>
+                <h3 class="grade-card-value">
+                    {{ "%.2f"|format(grades.assignment or 0) }}
+                </h3>
+            </div>
+        </div>
+
+        <!-- Midterm Card -->
+        <div class="grade-card">
+            <div class="grade-card-icon text-purple">
+                <i class="fa-solid fa-book-open"></i>
+            </div>
+            <div class="grade-card-info">
+                <span class="grade-card-label">Midterm</span>
+                <h3 class="grade-card-value">
+                    {{ "%.2f"|format(grades.midterm or 0) }}
+                </h3>
+            </div>
+        </div>
+
+        <!-- Final Card -->
+        <div class="grade-card">
+            <div class="grade-card-icon text-orange">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="grade-card-info">
+                <span class="grade-card-label">Final Exam</span>
+                <h3 class="grade-card-value">
+                    {{ "%.2f"|format(grades.final or 0) }}
+                </h3>
+            </div>
+        </div>
+
+        <!-- Overall / Final Grade Highlight Card -->
+        <div class="grade-card highlight-card">
+            <div class="grade-card-icon text-emerald">
+                <i class="fa-solid fa-trophy"></i>
+            </div>
+            <div class="grade-card-info">
+                <span class="grade-card-label">Overall Grade</span>
+                <h3 class="grade-card-value final-score">
+                    {{ "%.2f"|format(grades.final_grade or 0) }}
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area: Assessment Breakdown & Status -->
+    <div class="grades-details-card">
+        <div class="details-header">
+            <div class="header-title">
+                <i class="fa-solid fa-list-check"></i>
+                <h2>Assessment Breakdown</h2>
+            </div>
+
+            <!-- Pass / Fail Overall Status Banner -->
+            {% if grades.final_grade is not none %}
+                {% if grades.final_grade >= 60 %}
+                <div class="course-status-badge status-pass">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>PASSED</span>
+                </div>
+                {% else %}
+                <div class="course-status-badge status-fail">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                    <span>FAILED</span>
+                </div>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <!-- Assessment Table -->
+        <div class="table-responsive">
+            <table class="custom-table grades-table">
+                <thead>
+                    <tr>
+                        <th>Assessment Item</th>
+                        <th class="text-center">Score</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Row 1: Assignment -->
+                    <tr>
+                        <td class="item-name">
+                            <i class="fa-regular fa-file-lines text-cyan"></i>
+                            <span>Assignment</span>
+                        </td>
+                        <td class="text-center font-weight-bold">
+                            {{ "%.2f"|format(grades.assignment or 0) }}
+                        </td>
+                        <td class="text-center">
+                            {% if grades.assignment is not none %}
+                            <span class="badge-status badge-completed">
+                                <i class="fa-solid fa-check"></i> Completed
+                            </span>
+                            {% else %}
+                            <span class="badge-status badge-pending">
+                                <i class="fa-solid fa-hourglass-half"></i> Pending
+                            </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    <!-- Row 2: Midterm -->
+                    <tr>
+                        <td class="item-name">
+                            <i class="fa-regular fa-clone text-purple"></i>
+                            <span>Midterm</span>
+                        </td>
+                        <td class="text-center font-weight-bold">
+                            {{ "%.2f"|format(grades.midterm or 0) }}
+                        </td>
+                        <td class="text-center">
+                            {% if grades.midterm is not none %}
+                            <span class="badge-status badge-completed">
+                                <i class="fa-solid fa-check"></i> Completed
+                            </span>
+                            {% else %}
+                            <span class="badge-status badge-pending">
+                                <i class="fa-solid fa-hourglass-half"></i> Pending
+                            </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    <!-- Row 3: Final -->
+                    <tr>
+                        <td class="item-name">
+                            <i class="fa-regular fa-star text-orange"></i>
+                            <span>Final Exam</span>
+                        </td>
+                        <td class="text-center font-weight-bold">
+                            {{ "%.2f"|format(grades.final or 0) }}
+                        </td>
+                        <td class="text-center">
+                            {% if grades.final is not none %}
+                            <span class="badge-status badge-completed">
+                                <i class="fa-solid fa-check"></i> Completed
+                            </span>
+                            {% else %}
+                            <span class="badge-status badge-pending">
+                                <i class="fa-solid fa-hourglass-half"></i> Pending
+                            </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Action Link Footer -->
+    <div class="grades-actions">
+        <a href="{{ url_for('student.grade_report_page', course_id=course.course_id) }}" class="btn-report">
+            <i class="fa-solid fa-file-invoice"></i>
+            <span>View Detailed Grade Report</span>
+        </a>
+    </div>
+
+</div>
+{% endblock %}

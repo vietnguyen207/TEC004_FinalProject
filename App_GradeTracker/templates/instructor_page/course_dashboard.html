@@ -1,0 +1,104 @@
+{% extends "base/instructor_base.html" %}
+
+{% block content %}
+<div class="course-dashboard-container">
+    
+    <!-- PAGE HEADER SECTION -->
+    <div class="page-header">
+        <span class="badge-tag">
+            <i class="fa-solid fa-graduation-cap"></i> Course Management
+        </span>
+        <h1 class="page-title">{{ course.course_name }}</h1>
+        <p class="page-subtitle">Access management tools, attendance records, grades, and predictive analytics.</p>
+    </div>
+
+    <!-- QUICK ACCESS GRID -->
+    <div class="dashboard-grid">
+        
+        <!-- Attendance Card -->
+        <a href="{{ url_for('instructor.attendance_home', course_id=course.course_id) }}" class="dash-card">
+            <div class="dash-card-icon blue">
+                <i class="fa-solid fa-calendar-check"></i>
+            </div>
+            <div class="dash-card-info">
+                <h3>Attendance</h3>
+                <p>Take and manage daily class attendance</p>
+            </div>
+            <i class="fa-solid fa-arrow-right arrow-icon"></i>
+        </a>
+
+        <!-- Grades Card -->
+        <a href="{{ url_for('instructor.grades', course_id=course.course_id) }}" class="dash-card">
+            <div class="dash-card-icon green">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </div>
+            <div class="dash-card-info">
+                <h3>Grades</h3>
+                <p>Input and modify student evaluation scores</p>
+            </div>
+            <i class="fa-solid fa-arrow-right arrow-icon"></i>
+        </a>
+
+        <!-- Grade Percentage Card -->
+        <a href="{{ url_for('instructor.grade_percentage', course_id=course.course_id) }}" class="dash-card">
+            <div class="dash-card-icon orange">
+                <i class="fa-solid fa-chart-pie"></i>
+            </div>
+            <div class="dash-card-info">
+                <h3>Grade Percentage</h3>
+                <p>Configure percentage weights for assignments</p>
+            </div>
+            <i class="fa-solid fa-arrow-right arrow-icon"></i>
+        </a>
+
+        <!-- Attendance Report Card -->
+        <a href="{{ url_for('instructor.attendance_report', course_id=course.course_id) }}" class="dash-card">
+            <div class="dash-card-icon purple">
+                <i class="fa-solid fa-file-invoice"></i>
+            </div>
+            <div class="dash-card-info">
+                <h3>Attendance Report</h3>
+                <p>Generate detailed attendance summaries</p>
+            </div>
+            <i class="fa-solid fa-arrow-right arrow-icon"></i>
+        </a>
+
+        <!-- Attendance History Card -->
+        <a href="{{ url_for('instructor.attendance_history', course_id=course.course_id) }}" class="dash-card">
+            <div class="dash-card-icon teal">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+            <div class="dash-card-info">
+                <h3>Attendance History</h3>
+                <p>Review logs of past attendance sessions</p>
+            </div>
+            <i class="fa-solid fa-arrow-right arrow-icon"></i>
+        </a>
+
+        <!-- Assignments Card -->
+        <a href="{{ url_for('instructor.assignments', course_id=course.course_id) }}" class="dash-card">
+            <div class="dash-card-icon yellow">
+                <i class="fa-solid fa-book-open"></i>
+            </div>
+            <div class="dash-card-info">
+                <h3>Assignments</h3>
+                <p>Create and manage course assignments</p>
+            </div>
+            <i class="fa-solid fa-arrow-right arrow-icon"></i>
+        </a>
+
+        <!-- Prediction Dashboard Card -->
+        <a href="{{ url_for('instructor.prediction_dashboard', course_id=course.course_id) }}" class="dash-card">
+            <div class="dash-card-icon red">
+                <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <div class="dash-card-info">
+                <h3>Prediction Dashboard</h3>
+                <p>View AI analytics and student performance predictions</p>
+            </div>
+            <i class="fa-solid fa-arrow-right arrow-icon"></i>
+        </a>
+
+    </div>
+</div>
+{% endblock %}

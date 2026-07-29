@@ -1,0 +1,74 @@
+{% extends "base/instructor_base.html" %}
+
+{% block content %}
+<div class="courses-container">
+    
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <h1 class="page-title">My Courses</h1>
+        <p class="page-subtitle">Manage your assigned teaching courses, credits, and session details.</p>
+    </div>
+
+    <!-- MAIN PANEL CARD -->
+    <div class="panel-card">
+        
+        <!-- Panel Header -->
+        <div class="panel-header">
+            <div class="panel-title-group">
+                <span class="badge-tag"><i class="fa-solid fa-book-bookmark"></i> Course Directory</span>
+                <h2>Assigned Course List</h2>
+            </div>
+            <div class="courses-count">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span><strong>{{ courses|length }}</strong> course(s) assigned</span>
+            </div>
+        </div>
+
+        <!-- Table Responsive Container -->
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Course ID</th>
+                        <th>Course Name</th>
+                        <th>Credits</th>
+                        <th>Semester</th>
+                        <th>Sessions</th>
+                        <th class="text-right">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in courses %}
+                    <tr>
+                        <td>
+                            <span class="course-id-badge">{{ c.course_id }}</span>
+                        </td>
+                        <td class="course-name-cell">{{ c.course_name }}</td>
+                        <td>
+                            <span class="pill-info">{{ c.credits }} credits</span>
+                        </td>
+                        <td>
+                            <span class="semester-tag">{{ c.semester }}</span>
+                        </td>
+                        <td>{{ c.sessions }} sessions</td>
+                        <td class="text-right">
+                            <a href="{{ url_for('instructor.course_dashboard', course_id=c.course_id) }}" class="btn-open">
+                                Open <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="empty-state">
+                            <i class="fa-solid fa-folder-open"></i>
+                            <p>No assigned courses found.</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

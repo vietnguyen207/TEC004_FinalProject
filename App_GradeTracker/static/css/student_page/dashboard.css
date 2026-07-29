@@ -1,0 +1,2601 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background-color: #0b1329; /* Dark background */
+    color: #e2e8f0;
+    min-height: 100vh;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 260px;
+    background-color: #111c38;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .logo h2 {
+    color: #38bdf8;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar hr {
+    border: none;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 1.5rem 0;
+}
+
+.sidebar ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.sidebar ul li a:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar ul li a.logout-btn {
+    color: #f87171;
+}
+
+.sidebar ul li a.logout-btn:hover {
+    background-color: rgba(248, 113, 113, 0.1);
+}
+
+/* Main Content Area */
+.main-content {
+    flex: 1;
+    padding: 2.5rem 3rem;
+    position: relative;
+}
+
+/* Top Right User Header */
+.user-badge-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 2rem;
+}
+
+.user-badge {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1.25rem;
+    border-radius: 9999px;
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.user-badge span {
+    color: #38bdf8;
+    font-weight: 700;
+}
+
+/* Page Titles */
+.dashboard-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-subtitle {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin-bottom: 2.5rem;
+}
+
+/* Cards Section */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background-color: #172342;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card h2 {
+    font-size: 1.25rem;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.card p {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+/* Styling for Dashboard Header */
+.dashboard-header {
+    margin-bottom: 28px;
+}
+
+.dashboard-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+}
+
+.dashboard-header .subtitle {
+    color: #94a3b8;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* Layout Grid for Stat Cards */
+.stats-grid {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background-color: #1a2332; /* Tông màu card tối */
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 260px;
+    flex: 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Icon Box design inside cards */
+.icon-box {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.icon-box.blue {
+    background-color: rgba(14, 165, 233, 0.15);
+    color: #38bdf8;
+}
+
+.icon-box.cyan {
+    background-color: rgba(6, 182, 212, 0.15);
+    color: #22d3ee;
+}
+
+/* Text formatting inside cards */
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    letter-spacing: 0.2px;
+}
+
+.stat-value {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+/* Quick Access Card styling */
+.card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.card h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #94a3b8;
+    font-size: 14px;
+    line-height: 1.6;
+}
+/* ==========================================
+   Profile Page Styles
+   ========================================== */
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 900px;
+}
+
+/* Profile Header Card */
+.profile-header-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.profile-avatar {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, #0284c7, #38bdf8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(56, 189, 248, 0.25);
+    flex-shrink: 0;
+}
+
+.profile-title-info h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 6px;
+}
+
+.student-id-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: rgba(56, 189, 248, 0.1);
+    color: #38bdf8;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+/* Details Grid */
+.profile-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 20px;
+}
+
+.info-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    transition: border-color 0.2s ease;
+}
+
+.info-card:hover {
+    border-color: #38bdf8;
+}
+
+.info-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+    background-color: #111827;
+    color: #38bdf8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    border: 1px solid #1e293b;
+}
+
+.info-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-content label {
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-content p {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    word-break: break-word;
+}
+/* ==========================================
+   Analytics Page Styles
+   ========================================== */
+
+/* Grid layout cho 4 thẻ chỉ số */
+.analytics-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+/* Màu sắc icon riêng cho từng chỉ số */
+.icon-box.green {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+}
+
+.icon-box.orange {
+    background-color: rgba(249, 115, 22, 0.15);
+    color: #fb923c;
+}
+
+/* Container chứa Bảng Semester GPA */
+.analytics-table-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.table-card-header {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #283548;
+}
+
+.table-card-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.table-card-header h2 i {
+    color: #38bdf8;
+}
+
+/* Định dạng Bảng dữ liệu */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.custom-table th {
+    background-color: #111827;
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 14px 20px;
+    border-bottom: 1px solid #283548;
+}
+
+.custom-table td {
+    padding: 16px 20px;
+    color: #e2e8f0;
+    font-size: 15px;
+    border-bottom: 1px solid #283548;
+    transition: background-color 0.2s ease;
+}
+
+.custom-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.custom-table tbody tr:hover td {
+    background-color: #212d40;
+}
+
+.semester-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.semester-badge i {
+    color: #94a3b8;
+}
+
+.gpa-value-badge {
+    color: #38bdf8;
+    font-size: 16px;
+    font-weight: 700;
+}
+/* ==========================================
+   GPA Page Styles
+   ========================================== */
+
+.gpa-container {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.gpa-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.gpa-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 18px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #283548;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-title i {
+    font-size: 20px;
+    color: #38bdf8;
+}
+
+.header-title h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.gpa-status-badge {
+    background-color: rgba(56, 189, 248, 0.1);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Định dạng bảng GPA to và rộng */
+.gpa-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.gpa-table th {
+    background-color: #111827;
+    color: #94a3b8;
+    padding: 16px 24px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #283548;
+}
+
+.gpa-table td {
+    padding: 20px 24px;
+    font-size: 16px;
+    border-bottom: 1px solid #283548;
+    vertical-align: middle;
+}
+
+.gpa-table tbody tr:hover td {
+    background-color: #212d40;
+}
+
+/* Chi tiết từng cột */
+.semester-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.semester-cell i {
+    color: #38bdf8;
+    font-size: 16px;
+}
+
+.gpa-badge {
+    display: inline-block;
+    background-color: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.status-tag.completed {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #4ade80;
+    background-color: rgba(74, 222, 128, 0.1);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+}
+/* ==========================================
+   My Courses Page Styles
+   ========================================== */
+
+.courses-container {
+    width: 100%;
+    max-width: 1100px;
+}
+
+.courses-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.courses-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 18px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #283548;
+}
+
+.courses-card-header .header-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.courses-card-header .header-title i {
+    font-size: 20px;
+    color: #38bdf8;
+}
+
+.courses-card-header .header-title h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+.course-count-badge {
+    background-color: rgba(56, 189, 248, 0.1);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Table styling */
+.courses-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.courses-table th {
+    background-color: #111827;
+    color: #94a3b8;
+    padding: 16px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #283548;
+}
+
+.courses-table td {
+    padding: 18px 20px;
+    font-size: 15px;
+    border-bottom: 1px solid #283548;
+    vertical-align: middle;
+}
+
+.courses-table tbody tr:hover td {
+    background-color: #212d40;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Specific cell highlights */
+.course-id-badge {
+    display: inline-block;
+    background-color: rgba(56, 189, 248, 0.12);
+    color: #38bdf8;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.course-name-cell strong {
+    color: #ffffff;
+    font-size: 15px;
+}
+
+/* Styled Action Button */
+.btn-open-course {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #0284c7;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+}
+
+.btn-open-course:hover {
+    background-color: #0369a1;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+    color: #ffffff;
+}
+
+.btn-open-course i {
+    font-size: 12px;
+    transition: transform 0.2s ease;
+}
+
+.btn-open-course:hover i {
+    transform: translateX(3px);
+}
+/* ==========================================
+   Course Header & Navigation Styles
+   ========================================== */
+
+/* Header section */
+.course-header {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px 12px 0 0;
+    padding: 24px;
+    border-bottom: none;
+}
+
+.course-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.course-badge {
+    background-color: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+}
+
+.course-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+.course-meta-pills {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.meta-pill {
+    background-color: #111827;
+    color: #94a3b8;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid #283548;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.meta-pill i {
+    color: #38bdf8;
+}
+
+/* Sub-Navigation Tab Bar */
+.course-nav {
+    display: flex;
+    background-color: #111827;
+    border: 1px solid #283548;
+    border-radius: 0 0 12px 12px;
+    padding: 6px 12px;
+    gap: 6px;
+    overflow-x: auto;
+    margin-bottom: 28px;
+}
+
+.nav-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.nav-tab i {
+    font-size: 14px;
+}
+
+.nav-tab:hover {
+    color: #ffffff;
+    background-color: #1a2332;
+}
+
+.nav-tab.active {
+    color: #38bdf8;
+    background-color: rgba(56, 189, 248, 0.12);
+    font-weight: 600;
+}
+
+/* ==========================================
+   Course Overview Card Styles
+   ========================================== */
+
+.course-overview-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.overview-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #283548;
+}
+
+.overview-header i {
+    color: #38bdf8;
+    font-size: 18px;
+}
+
+.overview-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+}
+
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 16px;
+}
+
+.overview-item {
+    background-color: #111827;
+    border: 1px solid #283548;
+    border-radius: 10px;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.overview-item:hover {
+    transform: translateY(-2px);
+    border-color: #38bdf8;
+}
+
+.icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.icon-box.cyan {
+    background-color: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+}
+
+.icon-box.blue {
+    background-color: rgba(99, 102, 241, 0.15);
+    color: #818cf8;
+}
+
+.icon-box.green {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+}
+
+.icon-box.orange {
+    background-color: rgba(249, 115, 22, 0.15);
+    color: #fb923c;
+}
+
+.item-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.item-label {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.item-value {
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* ==========================================
+   Attendance Page Custom Styles
+   ========================================== */
+
+.attendance-container {
+    width: 100%;
+    max-width: 1100px;
+}
+
+/* Attendance Summary Layout Grid */
+.attendance-summary-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+    .attendance-summary-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Metric Card */
+.metric-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.metric-icon-box {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.metric-icon-box.cyan {
+    background-color: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.metric-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.metric-label {
+    font-size: 12px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.metric-value {
+    font-size: 26px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+}
+
+/* Status Card */
+.status-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.status-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.status-header i {
+    color: #38bdf8;
+}
+
+.status-alert {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.status-alert.alert-success {
+    background-color: rgba(34, 197, 94, 0.12);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.status-alert.alert-warning {
+    background-color: rgba(234, 179, 8, 0.12);
+    color: #facc15;
+    border: 1px solid rgba(234, 179, 8, 0.25);
+}
+
+.status-alert.alert-danger {
+    background-color: rgba(239, 68, 68, 0.12);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+/* Attendance History Card & Table */
+.attendance-history-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    margin-bottom: 24px;
+}
+
+.history-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #283548;
+}
+
+.history-card-header .header-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.history-card-header .header-title i {
+    color: #38bdf8;
+    font-size: 18px;
+}
+
+.history-card-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+.history-count-badge {
+    background-color: #111827;
+    color: #94a3b8;
+    border: 1px solid #283548;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Attendance Table Styling */
+.attendance-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.attendance-table th {
+    background-color: #111827;
+    color: #94a3b8;
+    padding: 14px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #283548;
+}
+
+.attendance-table td {
+    padding: 14px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #283548;
+    vertical-align: middle;
+}
+
+.attendance-table tbody tr:hover td {
+    background-color: #212d40;
+}
+
+.session-number {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.date-cell {
+    color: #94a3b8;
+}
+
+.date-cell i {
+    margin-right: 6px;
+    color: #38bdf8;
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.badge-present {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.badge-late {
+    background-color: rgba(234, 179, 8, 0.15);
+    color: #facc15;
+    border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.badge-absent {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.badge-default {
+    background-color: #283548;
+    color: #94a3b8;
+}
+
+/* Back Button */
+.back-link-wrapper {
+    margin-top: 10px;
+}
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #111827;
+    color: #94a3b8;
+    border: 1px solid #283548;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+    color: #ffffff;
+    background-color: #1a2332;
+    border-color: #38bdf8;
+}
+
+.btn-back i {
+    transition: transform 0.2s ease;
+}
+
+.btn-back:hover i {
+    transform: translateX(-3px);
+}
+/* ==========================================
+   Grades Page Custom Styles
+   ========================================== */
+
+.grades-container {
+    width: 100%;
+    max-width: 1100px;
+}
+
+/* 4 Metrics Summary Grid */
+.grades-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.grade-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.grade-card:hover {
+    transform: translateY(-2px);
+    border-color: #3b82f6;
+}
+
+/* Overall Grade Highlight Card Accent */
+.grade-card.highlight-card {
+    background: linear-gradient(135deg, #1a2332 0%, #1e293b 100%);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    box-shadow: 0 4px 20px rgba(56, 189, 248, 0.1);
+}
+
+.grade-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background-color: #111827;
+    border: 1px solid #283548;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+/* Icon Color Variants */
+.text-cyan { color: #38bdf8; }
+.text-purple { color: #c084fc; }
+.text-orange { color: #fb923c; }
+.text-emerald { color: #34d399; }
+
+.grade-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.grade-card-label {
+    font-size: 12px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.grade-card-value {
+    font-size: 24px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+}
+
+.grade-card-value.final-score {
+    color: #38bdf8;
+}
+
+/* Grades Details Section & Table */
+.grades-details-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    margin-bottom: 24px;
+}
+
+.details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #283548;
+}
+
+.details-header .header-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.details-header .header-title i {
+    color: #38bdf8;
+    font-size: 18px;
+}
+
+.details-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+/* Pass/Fail Status Badges */
+.course-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.status-pass {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.status-fail {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Table Design */
+.grades-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.grades-table th {
+    background-color: #111827;
+    color: #94a3b8;
+    padding: 14px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #283548;
+}
+
+.grades-table td {
+    padding: 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #283548;
+    color: #e2e8f0;
+}
+
+.grades-table tbody tr:hover td {
+    background-color: #212d40;
+}
+
+.item-name {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+}
+
+.item-name i {
+    font-size: 16px;
+}
+
+/* Assessment Row Status Badges */
+.badge-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-completed {
+    background-color: rgba(56, 189, 248, 0.12);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.badge-pending {
+    background-color: rgba(148, 163, 184, 0.12);
+    color: #94a3b8;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+/* Action Button */
+.grades-actions {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.btn-report {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #2563eb;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    transition: all 0.2s ease;
+}
+
+.btn-report:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+    color: #ffffff;
+}
+/* ==========================================
+   Attendance Report Custom Styles
+   ========================================== */
+
+.report-container {
+    width: 100%;
+    max-width: 1100px;
+}
+
+/* Top Header */
+.report-top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.report-top-header .header-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.report-top-header .header-title i {
+    color: #38bdf8;
+    font-size: 20px;
+}
+
+.report-top-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+/* Print Button */
+.btn-print {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #10b981;
+    color: #ffffff;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+    transition: all 0.2s ease;
+}
+
+.btn-print:hover {
+    background-color: #059669;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+}
+
+/* Summary Grid (Rate & Eval) */
+.report-summary-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .report-summary-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.rate-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.rate-label {
+    font-size: 12px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.rate-value {
+    font-size: 36px;
+    font-weight: 800;
+    color: #38bdf8;
+    margin: 0 0 10px 0;
+}
+
+.evaluation-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.eval-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.eval-header i {
+    color: #38bdf8;
+}
+
+.eval-alert {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.eval-alert.alert-success {
+    background-color: rgba(34, 197, 94, 0.12);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.eval-alert.alert-warning {
+    background-color: rgba(234, 179, 8, 0.12);
+    color: #facc15;
+    border: 1px solid rgba(234, 179, 8, 0.25);
+}
+
+.eval-alert.alert-danger {
+    background-color: rgba(239, 68, 68, 0.12);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+/* 4 Statistics Cards Grid */
+.report-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.stat-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+    background-color: #111827;
+    border: 1px solid #283548;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.text-emerald { color: #34d399; }
+.text-amber { color: #fbbf24; }
+.text-rose { color: #fb7185; }
+.text-cyan { color: #38bdf8; }
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.stat-value {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0;
+}
+
+/* History Card & Table */
+.report-history-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    margin-bottom: 24px;
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.report-table th {
+    background-color: #111827;
+    color: #94a3b8;
+    padding: 14px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #283548;
+}
+
+.report-table td {
+    padding: 14px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #283548;
+    vertical-align: middle;
+}
+
+.report-table tbody tr:hover td {
+    background-color: #212d40;
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.badge-excellent, .badge-present {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.badge-acceptable, .badge-late {
+    background-color: rgba(234, 179, 8, 0.15);
+    color: #facc15;
+    border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.badge-at-risk, .badge-absent {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.badge-default {
+    background-color: #283548;
+    color: #94a3b8;
+}
+
+/* ==========================================
+   Print Styles (Optimized for Printing/PDF)
+   ========================================== */
+@media print {
+    body {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+    }
+    
+    .no-print, nav, sidebar, .sidebar, .course-nav-tabs {
+        display: none !important;
+    }
+
+    .report-container {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .rate-card, .evaluation-card, .stat-card, .report-history-card {
+        background-color: #ffffff !important;
+        border: 1px solid #ddd !important;
+        color: #000000 !important;
+        box-shadow: none !important;
+    }
+
+    .report-table th {
+        background-color: #f3f4f6 !important;
+        color: #000000 !important;
+    }
+
+    .report-table td {
+        border-bottom: 1px solid #eee !important;
+        color: #000000 !important;
+    }
+
+    .rate-value, .stat-value, .session-number, .report-top-header h2, .history-card-header h2 {
+        color: #000000 !important;
+    }
+}
+/* ==========================================
+   Grade Report Page Custom Styles
+   ========================================== */
+
+.grade-report-container {
+    width: 100%;
+    max-width: 1100px;
+}
+
+/* Header Action */
+.report-top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.report-top-header .header-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.report-top-header .header-title i {
+    color: #38bdf8;
+    font-size: 20px;
+}
+
+.report-top-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+/* Summary Section (Overall + Breakdown) */
+.grade-report-summary-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 868px) {
+    .grade-report-summary-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.result-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.result-label {
+    font-size: 12px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.result-score {
+    font-size: 42px;
+    font-weight: 800;
+    color: #38bdf8;
+    margin: 0 0 12px 0;
+}
+
+/* Pass / Fail Badges */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.badge-pass, .badge-graded {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.badge-fail, .badge-not-submitted {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.badge-submitted {
+    background-color: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+/* Breakdown Card */
+.breakdown-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 20px 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-inner-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid #283548;
+}
+
+.card-inner-header i {
+    color: #38bdf8;
+}
+
+/* Breakdown Table */
+.breakdown-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.breakdown-table th {
+    background-color: #111827;
+    color: #94a3b8;
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-bottom: 1px solid #283548;
+}
+
+.breakdown-table td {
+    padding: 12px 14px;
+    font-size: 14px;
+    border-bottom: 1px solid #283548;
+    color: #e2e8f0;
+}
+
+.category-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.total-row td {
+    background-color: rgba(17, 24, 39, 0.5);
+    border-bottom: none;
+}
+
+.score-final-text {
+    font-size: 16px;
+}
+
+/* Homework Details Card */
+.hw-details-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    margin-bottom: 24px;
+}
+
+.card-inner-header .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-inner-header .header-left h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+.count-badge {
+    margin-left: auto;
+    background-color: #111827;
+    color: #94a3b8;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    border: 1px solid #283548;
+}
+
+.hw-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.hw-table th {
+    background-color: #111827;
+    color: #94a3b8;
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-bottom: 1px solid #283548;
+}
+
+.hw-table td {
+    padding: 14px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #283548;
+    color: #e2e8f0;
+    vertical-align: middle;
+}
+
+.hw-table tbody tr:hover td {
+    background-color: #212d40;
+}
+
+.type-tag {
+    background-color: #111827;
+    color: #94a3b8;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    border: 1px solid #283548;
+}
+
+.text-italic {
+    font-style: italic;
+}
+
+/* Back Button */
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #283548;
+    color: #ffffff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+    background-color: #3b82f6;
+    color: #ffffff;
+}
+
+/* ==========================================
+   Print Styles (PDF Export Optimization)
+   ========================================== */
+@media print {
+    body {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+    }
+    
+    .no-print, nav, sidebar, .sidebar, .course-nav-tabs {
+        display: none !important;
+    }
+
+    .grade-report-container {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .result-card, .breakdown-card, .hw-details-card {
+        background-color: #ffffff !important;
+        border: 1px solid #ddd !important;
+        color: #000000 !important;
+        box-shadow: none !important;
+    }
+
+    .breakdown-table th, .hw-table th {
+        background-color: #f3f4f6 !important;
+        color: #000000 !important;
+    }
+
+    .breakdown-table td, .hw-table td {
+        border-bottom: 1px solid #eee !important;
+        color: #000000 !important;
+    }
+
+    .result-score, .report-top-header h2, .card-inner-header {
+        color: #000000 !important;
+    }
+}
+/* ==========================================
+   Assignments Page Custom Styles
+   ========================================== */
+
+.assignments-container {
+    width: 100%;
+    max-width: 1100px;
+}
+
+/* Card Wrapper */
+.assignments-card {
+    background-color: #1a2332;
+    border: 1px solid #283548;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    margin-bottom: 24px;
+}
+
+/* Card Header */
+.assignments-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #283548;
+}
+
+.assignments-card-header .header-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.assignments-card-header .header-title i {
+    color: #38bdf8;
+    font-size: 18px;
+}
+
+.assignments-card-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+.count-badge {
+    background-color: #111827;
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 12px;
+    border: 1px solid #283548;
+}
+
+/* Table Design */
+.assignments-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.assignments-table th {
+    background-color: #111827;
+    color: #94a3b8;
+    padding: 14px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #283548;
+}
+
+.assignments-table td {
+    padding: 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #283548;
+    color: #e2e8f0;
+    vertical-align: middle;
+}
+
+.assignments-table tbody tr:hover td {
+    background-color: #212d40;
+}
+
+/* Cell Elements */
+.assignment-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.assignment-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background-color: #111827;
+    border: 1px solid #283548;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #38bdf8;
+    flex-shrink: 0;
+}
+
+.name-text {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.due-date-cell {
+    color: #94a3b8;
+}
+
+.due-date-cell i {
+    margin-right: 6px;
+    font-size: 13px;
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.badge-graded {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.badge-submitted {
+    background-color: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.badge-pending {
+    background-color: rgba(234, 179, 8, 0.15);
+    color: #facc15;
+    border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+/* Action Button */
+.btn-open {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #2563eb;
+    color: #ffffff !important;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+}
+
+.btn-open:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+/* Container & Layout Styling */
+.assignment-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px;
+    color: #e2e8f0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.assignment-header {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.assignment-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 16px 0;
+}
+
+.meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.meta-item {
+    background: #0f172a;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #1e293b;
+}
+
+.meta-label {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.meta-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #f8fafc;
+}
+
+/* Card Box */
+.card-box {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #38bdf8;
+    margin-top: 0;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* File Upload Styling */
+.file-drop-area {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+    border: 2px dashed #475569;
+    border-radius: 8px;
+    background-color: #0f172a;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    text-align: center;
+}
+
+.file-drop-area:hover {
+    border-color: #38bdf8;
+    background-color: #131f37;
+}
+
+.file-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.upload-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.file-msg {
+    color: #94a3b8;
+    font-size: 0.95rem;
+}
+
+.file-name-display {
+    margin-top: 8px;
+    font-weight: 600;
+    color: #38bdf8;
+    font-size: 0.9rem;
+}
+
+/* Submit Button */
+.btn-submit {
+    background-color: #2563eb;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 16px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-submit:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-submit:active {
+    transform: scale(0.99);
+}
+
+/* Badge for Scores */
+.score-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background-color: #065f46;
+    color: #34d399;
+    font-weight: 600;
+}
+/* Custom CSS for AI Grade Prediction - Dark Theme */
+
+.prediction-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    color: #e2e8f0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Header Section */
+.page-header {
+    margin-bottom: 28px;
+}
+
+.page-title {
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+}
+
+.course-subtitle {
+    color: #38bdf8;
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+/* Card General Style */
+.ai-card {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.card-heading {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-heading.primary { color: #38bdf8; }
+.card-heading.alert { color: #f87171; }
+.card-heading.recommendation { color: #34d399; }
+.card-heading.performance { color: #c084fc; }
+
+/* Grid Layouts */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    align-items: center;
+}
+
+.stat-box {
+    background-color: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    padding: 18px;
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+}
+
+.stat-value-large {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #38bdf8;
+    line-height: 1;
+}
+
+/* Risk Badges */
+.badge-risk {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.badge-low { background-color: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3); }
+.badge-medium { background-color: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+.badge-high { background-color: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.3); }
+.badge-default { background-color: #334155; color: #cbd5e1; }
+
+/* Progress Bar */
+.progress-container {
+    background-color: #0f172a;
+    border-radius: 10px;
+    padding: 6px;
+    border: 1px solid #1e293b;
+}
+
+.custom-progress {
+    height: 22px;
+    background-color: #1e293b;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.custom-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #0284c7 0%, #38bdf8 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    transition: width 0.6s ease;
+}
+
+/* Alert Box */
+.alert-box {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-left: 4px solid #ef4444;
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+    color: #fca5a5;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* List Styling */
+.recommendation-list {
+    margin: 0;
+    padding-left: 20px;
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+.recommendation-list li {
+    margin-bottom: 8px;
+}
+
+/* Custom Table */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #0f172a;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #1e293b;
+}
+
+.custom-table th {
+    background-color: #182232;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 14px 18px;
+    text-align: center;
+    border-bottom: 1px solid #1e293b;
+}
+
+.custom-table td {
+    padding: 16px 18px;
+    text-align: center;
+    color: #f8fafc;
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+/* Empty State */
+.empty-state {
+    background-color: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    color: #fbbf24;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}

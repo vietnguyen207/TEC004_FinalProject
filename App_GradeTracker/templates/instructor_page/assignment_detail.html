@@ -1,0 +1,133 @@
+{% extends "base/instructor_base.html" %}
+
+{% block title %}
+{{ assignment.assignment_name }} - Submissions
+{% endblock %}
+
+{% block content %}
+<div class="submissions-container">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header flex-between">
+        <div>
+            <span class="badge-tag">
+                <i class="fa-solid fa-file-signature"></i> Submissions Management
+            </span>
+            <h1 class="page-title">{{ assignment.assignment_name }}</h1>
+            <p class="page-subtitle">Overview of student submissions and grading status.</p>
+        </div>
+
+        <a href="javascript:history.back()" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Back to Assignments
+        </a>
+    </div>
+
+    <!-- ASSIGNMENT METRICS / INFO CARDS -->
+    <div class="info-cards-grid mb-24">
+        <div class="stat-card border-info">
+            <div class="stat-icon bg-info-soft">
+                <i class="fa-regular fa-calendar-days"></i>
+            </div>
+            <div class="stat-details">
+                <span class="stat-label">Due Date</span>
+                <h3 class="stat-value-text">
+                    {% if assignment.due_date and assignment.due_date != 'None' %}
+                        {{ assignment.due_date }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </h3>
+            </div>
+        </div>
+
+        <div class="stat-card border-warning">
+            <div class="stat-icon bg-warning-soft">
+                <i class="fa-solid fa-award"></i>
+            </div>
+            <div class="stat-details">
+                <span class="stat-label">Max Points</span>
+                <h3 class="stat-value-text">{{ assignment.max_points }} <span class="unit-text">pts</span></h3>
+            </div>
+        </div>
+
+        <div class="stat-card border-success">
+            <div class="stat-icon bg-success-soft">
+                <i class="fa-solid fa-users-viewfinder"></i>
+            </div>
+            <div class="stat-details">
+                <span class="stat-label">Total Submissions</span>
+                <h3 class="stat-value-text">{{ submissions|length }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUBMISSIONS TABLE PANEL -->
+    <div class="panel-card">
+        <div class="panel-header">
+            <div class="panel-title-group">
+                <h2><i class="fa-solid fa-list-check icon-cyan"></i> Student Submissions</h2>
+            </div>
+            <span class="weight-note"><i class="fa-solid fa-user-graduate"></i> Track and evaluate submissions</span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Student ID</th>
+                        <th style="width: 30%;">Submit Time</th>
+                        <th style="width: 25%;">Score / {{ assignment.max_points }}</th>
+                        <th style="width: 20%; text-align: right;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for submission in submissions %}
+                    <tr>
+                        <td>
+                            <span class="course-id-badge">
+                                <i class="fa-solid fa-user"></i> {{ submission.student_id }}
+                            </span>
+                        </td>
+                        <td>
+                            {% if submission.submit_time and submission.submit_time != 'None' %}
+                                <span class="submit-time-text">
+                                    <i class="fa-regular fa-clock text-info"></i> {{ submission.submit_time }}
+                                </span>
+                            {% else %}
+                                <span class="text-muted-tag">
+                                    <i class="fa-solid fa-circle-minus"></i> No Time Recorded
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if submission.score is not none and submission.score != 'None' and submission.score != '' %}
+                                <span class="score-display badge-graded">
+                                    <i class="fa-solid fa-check"></i> {{ submission.score }} pts
+                                </span>
+                            {% else %}
+                                <span class="score-display badge-ungraded">
+                                    <i class="fa-solid fa-hourglass-half"></i> Ungraded
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td style="text-align: right;">
+                            <a href="{{ url_for('instructor.grade_submission_page', submission_id=submission.submission_id) }}" class="btn-action-grade">
+                                <i class="fa-solid fa-pen-to-square"></i> Grade
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="empty-state">
+                            <i class="fa-solid fa-inbox"></i>
+                            <p>No student submissions found for this assignment.</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

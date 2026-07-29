@@ -1,0 +1,92 @@
+{% extends "base/instructor_base.html" %}
+
+{% block content %}
+<div class="gradebook-container">
+    
+    <!-- PAGE HEADER WITH ACTIONS -->
+    <div class="page-header flex-between">
+        <div>
+            <span class="badge-tag">
+                <i class="fa-solid fa-graduation-cap"></i> Grade Management
+            </span>
+            <h1 class="page-title">{{ course.course_name }}</h1>
+            <p class="page-subtitle">View and edit evaluation grades for all enrolled students.</p>
+        </div>
+
+        <div class="header-actions">
+            <a href="{{ url_for('instructor.calculate_final', course_id=course.course_id) }}" class="btn-calculate">
+                <i class="fa-solid fa-calculator"></i> Calculate Final Grade
+            </a>
+        </div>
+    </div>
+
+    <!-- MAIN PANEL CARD -->
+    <div class="panel-card">
+        
+        <!-- Panel Header -->
+        <div class="panel-header">
+            <div class="panel-title-group">
+                <h2>Gradebook Overview</h2>
+            </div>
+            <div class="students-count">
+                <i class="fa-solid fa-users"></i>
+                <span><strong>{{ grades|length }}</strong> Students</span>
+            </div>
+        </div>
+
+        <!-- Table Responsive Container -->
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Full Name</th>
+                        <th class="text-center">Assignment</th>
+                        <th class="text-center">Midterm</th>
+                        <th class="text-center">Final</th>
+                        <th class="text-center">Final Grade</th>
+                        <th class="text-right">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in grades %}
+                    <tr>
+                        <td>
+                            <span class="course-id-badge">{{ s.student_id }}</span>
+                        </td>
+                        <td class="course-name-cell">{{ s.name }}</td>
+                        <td class="text-center">
+                            <span class="score-pill">{{ s.assignment if s.assignment is not none else '-' }}</span>
+                        </td>
+                        <td class="text-center">
+                            <span class="score-pill">{{ s.midterm if s.midterm is not none else '-' }}</span>
+                        </td>
+                        <td class="text-center">
+                            <span class="score-pill">{{ s.final if s.final is not none else '-' }}</span>
+                        </td>
+                        <td class="text-center">
+                            <span class="final-score-badge">
+                                {{ s.final_grade if s.final_grade is not none else 'N/A' }}
+                            </span>
+                        </td>
+                        <td class="text-right">
+                            <a href="{{ url_for('instructor.edit_grade', course_id=course.course_id, student_id=s.student_id) }}" class="btn-edit">
+                                <i class="fa-solid fa-pen"></i> Edit
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="empty-state">
+                            <i class="fa-solid fa-folder-open"></i>
+                            <p>No student grade records found.</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "base/instructor_base.html" %}
+
+{% block content %}
+<div class="assignments-container">
+    
+    <!-- PAGE HEADER WITH CREATE ACTION -->
+    <div class="page-header flex-between">
+        <div>
+            <span class="badge-tag">
+                <i class="fa-solid fa-book-open"></i> Coursework & Assessment
+            </span>
+            <h1 class="page-title">Assignments</h1>
+            <p class="page-subtitle">Manage assignments, set due dates, and specify maximum grading points.</p>
+        </div>
+
+        <div class="header-actions">
+            <a href="{{ url_for('instructor.create_assignment_page', course_id=course.course_id if course else course_id) }}" class="btn-create">
+                <i class="fa-solid fa-plus"></i> Create Assignment
+            </a>
+        </div>
+    </div>
+
+    <!-- MAIN PANEL CARD -->
+    <div class="panel-card">
+        
+        <!-- Panel Header -->
+        <div class="panel-header">
+            <div class="panel-title-group">
+                <h2>Assignment List</h2>
+            </div>
+            <div class="students-count">
+                <i class="fa-solid fa-file-signature"></i>
+                <span><strong>{{ assignments|length }}</strong> Assignment(s)</span>
+            </div>
+        </div>
+
+        <!-- Table Responsive Container -->
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th style="width: 35%;">Assignment Name</th>
+                        <th style="width: 25%;">Due Date</th>
+                        <th style="width: 20%;" class="text-center">Max Points</th>
+                        <th style="width: 20%;" class="text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for assignment in assignments %}
+                    <tr>
+                        <td>
+                            <a href="{{ url_for('instructor.assignment_detail', assignment_id=assignment.assignment_id) }}" class="assignment-title-link">
+                                <i class="fa-solid fa-file-code icon-prefix"></i>
+                                {{ assignment.assignment_name }}
+                            </a>
+                        </td>
+                        <td>
+                            <span class="date-text">
+                                <i class="fa-regular fa-calendar-check"></i> {{ assignment.due_date }}
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <span class="points-badge">{{ assignment.max_points }} pts</span>
+                        </td>
+                        <td class="text-right">
+                            <div class="action-buttons-group">
+                                <a href="{{ url_for('instructor.edit_assignment_page', assignment_id=assignment.assignment_id) }}" class="btn-edit" title="Edit Assignment">
+                                    <i class="fa-solid fa-pen"></i> Edit
+                                </a>
+                                
+                                <form method="POST" action="{{ url_for('instructor.delete_assignment_page', assignment_id=assignment.assignment_id) }}" class="inline-form">
+                                    <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete this assignment?')" title="Delete Assignment">
+                                        <i class="fa-solid fa-trash-can"></i> Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="empty-state">
+                            <i class="fa-solid fa-folder-open"></i>
+                            <p>No assignments created yet for this course.</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

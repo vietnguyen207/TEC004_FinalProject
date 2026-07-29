@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- ===== 1. METADATA & CONFIGURATION ===== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyTrack - Analytics Dashboard</title>
+
+    <!-- ===== 2. EXTERNAL FONTS & ICONS ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- ===== 3. CUSTOM STYLESHEET ===== -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_page/data_analytics.css') }}">
+</head>
+
+<body>
+
+    <!-- ========================================================= -->
+    <!-- SECTION 1: HEADER & NAVIGATION BAR (Đồng bộ manage_stu)     -->
+    <!-- ========================================================= -->
+    <header class="navbar">
+        <a href="/admin" class="nav-brand">
+            <i class="fa-solid fa-graduation-cap logo-icon"></i>
+            <span>StudyTrack</span>
+        </a>
+        <a href="/admin" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </header>
+
+    <!-- ========================================================= -->
+    <!-- SECTION 2: MAIN CONTENT CONTAINER                         -->
+    <!-- ========================================================= -->
+    <div class="container">
+
+        <!-- ===== BLOCK A: PAGE HEADER ===== -->
+        <div class="page-header">
+            <span class="badge-tag"><i class="fa-solid fa-circle"></i> Student Performance</span>
+            <h1 class="page-title">Analytics Dashboard</h1>
+            <p class="page-subtitle">A focused space to understand GPA calculations and explore class performance by
+                semester.</p>
+        </div>
+
+        <!-- ===== BLOCK B: ANALYTICS CARDS GRID (Dual-card layout) ===== -->
+        <div class="analytics-grid">
+
+            <!-- Card 1: GPA Calculation (Sáng - Trái) -->
+            <div class="card-panel card-light">
+                <div class="card-header-flex">
+                    <div>
+                        <span class="card-category">Academic Record</span>
+                        <h2 class="panel-title">GPA Calculation</h2>
+                    </div>
+                    <div class="card-icon-box light-icon">
+                        <i class="fa-solid fa-sigma"></i>
+                    </div>
+                </div>
+
+                <p class="card-desc">Use the grade-point reference below to review how letter grades contribute to a
+                    GPA.</p>
+
+                <a href="/pdanalytics/gpa" class="btn-action btn-yellow">
+                    <i class="fa-solid fa-table"></i> View GPA Table
+                </a>
+            </div>
+
+            <!-- Card 2: Class Ranking (Tối - Phải, bám sát mẫu tham khảo) -->
+            <div class="card-panel card-dark">
+                <div class="card-header-flex">
+                    <div>
+                        <span class="card-category text-gold">Performance Overview</span>
+                        <h2 class="panel-title text-white">Class Ranking</h2>
+                    </div>
+                    <div class="card-icon-box dark-icon">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                </div>
+
+                <p class="card-desc text-muted">Enter a semester to bring up its class ranking overview.</p>
+
+                <!-- Form giữ nguyên logic redirect gốc -->
+                <form action="" onsubmit="
+                        window.location='/pdanalytics/ranking/' + semester.value;
+                        return false;
+                    " class="ranking-form">
+                    <div class="form-group">
+                        <label for="semester" class="form-label text-light">Semester</label>
+                        <input type="text" id="semester" class="form-control-dark" placeholder="e.g., Semester 1"
+                            required>
+                    </div>
+
+                    <button type="submit" class="btn-icon-submit" title="Show Ranking">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <hr class="divider-dark">
+
+                <div class="card-footer-info">
+                    <i class="fa-solid fa-shield-halved"></i> Enter a semester to view its ranking overview.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

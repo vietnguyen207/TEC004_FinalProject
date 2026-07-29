@@ -1,0 +1,83 @@
+{% extends "base/student_base.html" %}
+
+{% block title %}Assignments - {{ course.course_name }}{% endblock %}
+
+{% block content %}
+<!-- Include Course Navigation Header -->
+{% include "student_page/nav/course_nav.html" %}
+
+<div class="assignments-container">
+    
+    <!-- Main Card Container -->
+    <div class="assignments-card">
+        
+        <!-- Header Section -->
+        <div class="assignments-card-header">
+            <div class="header-title">
+                <i class="fa-solid fa-list-check"></i>
+                <h2>Course Assignments</h2>
+            </div>
+            <span class="count-badge">{{ assignments|length }} Total</span>
+        </div>
+
+        <!-- Assignments Table -->
+        <div class="table-responsive">
+            <table class="custom-table assignments-table">
+                <thead>
+                    <tr>
+                        <th>Assignment Name</th>
+                        <th class="text-center">Due Date</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for assignment in assignments %}
+                    <tr>
+                        <!-- Assignment Name -->
+                        <td class="assignment-name-cell">
+                            <div class="assignment-icon">
+                                <i class="fa-regular fa-file-code"></i>
+                            </div>
+                            <span class="name-text">{{ assignment.assignment_name }}</span>
+                        </td>
+
+                        <!-- Due Date -->
+                        <td class="text-center due-date-cell">
+                            <i class="fa-regular fa-calendar-days"></i>
+                            <span>{{ assignment.due_date }}</span>
+                        </td>
+
+                        <!-- Status Badge -->
+                        <td class="text-center">
+                            {% if assignment.status == 'Graded' %}
+                                <span class="status-badge badge-graded">
+                                    <i class="fa-solid fa-check-double"></i> Graded
+                                </span>
+                            {% elif assignment.status == 'Submitted' %}
+                                <span class="status-badge badge-submitted">
+                                    <i class="fa-solid fa-paper-plane"></i> Submitted
+                                </span>
+                            {% else %}
+                                <span class="status-badge badge-pending">
+                                    <i class="fa-solid fa-clock"></i> {{ assignment.status or 'Pending' }}
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <!-- Action Button -->
+                        <td class="text-center">
+                            <a href="{{ url_for('student.submit_assignment_page', assignment_id=assignment.assignment_id) }}" class="btn-open">
+                                <span>Open</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

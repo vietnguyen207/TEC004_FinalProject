@@ -1,0 +1,52 @@
+<!-- Course Header Info Banner -->
+<div class="course-header">
+    <div class="course-title-wrapper">
+        <span class="course-badge">{{ course.course_id }}</span>
+        <h1 class="course-name">{{ course.course_name }}</h1>
+    </div>
+    
+    <div class="course-meta-pills">
+        <span class="meta-pill"><i class="fa-regular fa-calendar-check"></i> {{ course.semester }}</span>
+        <span class="meta-pill"><i class="fa-solid fa-award"></i> {{ course.credits }} Credits</span>
+        <span class="meta-pill"><i class="fa-solid fa-clock"></i> {{ course.sessions }} Sessions</span>
+    </div>
+</div>
+
+<!-- Course Sub-Navigation Navigation Tabs -->
+<div class="course-nav">
+    <a class="nav-tab {% if request.endpoint=='student.course_dashboard' %}active{% endif %}"
+       href="{{ url_for('student.course_dashboard', course_id=course.course_id) }}">
+        <i class="fa-solid fa-house"></i>
+        <span>Overview</span>
+    </a>
+
+    <a class="nav-tab {% if request.endpoint=='student.grades' %}active{% endif %}"
+       href="{{ url_for('student.grades', course_id=course.course_id) }}">
+        <i class="fa-solid fa-square-poll-vertical"></i>
+        <span>Grades</span>
+    </a>
+
+    <a class="nav-tab {% if request.endpoint=='student.attendance_report_page' %}active{% endif %}"
+       href="{{ url_for('student.attendance_report_page', course_id=course.course_id) }}">
+        <i class="fa-solid fa-chart-column"></i>
+        <span>Attendance Report</span>
+    </a>
+
+    <a class="nav-tab {% if request.endpoint=='student.grade_report_page' %}active{% endif %}"
+       href="{{ url_for('student.grade_report_page', course_id=course.course_id) }}">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Grade Report</span>
+    </a>
+
+    <a class="nav-tab {% if request.endpoint=='student.assignments' %}active{% endif %}"
+       href="{{ url_for('student.assignments', course_id=course.course_id) }}">
+        <i class="fa-solid fa-pen-to-square"></i>
+        <span>Assignments</span>
+    </a>
+
+    <a class="nav-tab {% if request.endpoint=='student.prediction' %}active{% endif %}"
+       href="{{ url_for('student.prediction', course_id=course.course_id) }}">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <span>Prediction</span>
+    </a>
+</div>

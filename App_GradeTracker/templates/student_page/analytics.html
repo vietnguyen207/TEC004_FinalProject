@@ -1,0 +1,85 @@
+{% extends "base/student_base.html" %}
+
+{% block title %}Analytics{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+    <h1>Learning Analytics</h1>
+    <p class="subtitle">Detailed breakdown of your academic progress, attendance, and GPA trends.</p>
+</div>
+
+<!-- Grid 4 thẻ thông số nằm ngang -->
+<div class="analytics-stats-grid">
+    <div class="stat-card">
+        <div class="icon-box cyan">
+            <i class="fa-solid fa-user-check"></i>
+        </div>
+        <div class="stat-info">
+            <span class="stat-label">Average Attendance</span>
+            <h2 class="stat-value">{{ attendance }}%</h2>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="icon-box blue">
+            <i class="fa-solid fa-chart-line"></i>
+        </div>
+        <div class="stat-info">
+            <span class="stat-label">Average Grade</span>
+            <h2 class="stat-value">{{ grades[0] }}</h2>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="icon-box green">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+        </div>
+        <div class="stat-info">
+            <span class="stat-label">Highest Grade</span>
+            <h2 class="stat-value">{{ grades[1] }}</h2>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="icon-box orange">
+            <i class="fa-solid fa-arrow-trend-down"></i>
+        </div>
+        <div class="stat-info">
+            <span class="stat-label">Lowest Grade</span>
+            <h2 class="stat-value">{{ grades[2] }}</h2>
+        </div>
+    </div>
+</div>
+
+<!-- Bảng Semester GPA hiện đại -->
+<div class="analytics-table-card">
+    <div class="table-card-header">
+        <h2><i class="fa-solid fa-graduation-cap"></i> Semester GPA</h2>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Semester</th>
+                    <th>GPA</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in gpa %}
+                <tr>
+                    <td>
+                        <span class="semester-badge">
+                            <i class="fa-regular fa-calendar-check"></i> {{ row.semester }}
+                        </span>
+                    </td>
+                    <td>
+                        <strong class="gpa-value-badge">{{ row.gpa }}</strong>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

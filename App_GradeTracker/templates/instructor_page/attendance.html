@@ -1,0 +1,85 @@
+{% extends "base/instructor_base.html" %}
+
+{% block content %}
+<div class="attendance-check-container">
+    
+    <!-- PAGE HEADER & ACTION BAR -->
+    <div class="page-header flex-between">
+        <div>
+            <span class="badge-tag">
+                <i class="fa-solid fa-pen-to-square"></i> Mark Attendance
+            </span>
+            <h1 class="page-title">Session {{ session_number }} Attendance</h1>
+            <p class="page-subtitle">Select attendance status for each student and save changes.</p>
+        </div>
+        
+        <a href="{{ url_for('instructor.attendance_home', course_id=course_id) }}" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Back to Sessions
+        </a>
+    </div>
+
+    <!-- ATTENDANCE FORM & PANEL -->
+    <form method="POST" action="{{ url_for('instructor.attendance_save', course_id=course_id) }}">
+        <input type="hidden" name="session_number" value="{{ session_number }}">
+
+        <div class="panel-card">
+            <div class="panel-header">
+                <div class="panel-title-group">
+                    <h2>Student List</h2>
+                </div>
+                <div class="students-count">
+                    <i class="fa-solid fa-users"></i>
+                    <span><strong>{{ students|length }}</strong> Students</span>
+                </div>
+            </div>
+
+            <!-- TABLE CONTAINER -->
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Student ID</th>
+                            <th style="width: 45%;">Full Name</th>
+                            <th style="width: 30%;">Attendance Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in students %}
+                        <tr>
+                            <td>
+                                <span class="course-id-badge">{{ s.student_id }}</span>
+                            </td>
+                            <td class="course-name-cell">{{ s.name }}</td>
+                            <td>
+                                <div class="select-wrapper">
+                                    <select name="student_{{ s.student_id }}" class="status-select">
+                                        <option value="Present" {% if attendance.get(s.student_id)=="Present" %}selected{% endif %}>
+                                            🟢 Present
+                                        </option>
+                                        <option value="Late" {% if attendance.get(s.student_id)=="Late" %}selected{% endif %}>
+                                            🟡 Late
+                                        </option>
+                                        <option value="Absent" {% if attendance.get(s.student_id)=="Absent" %}selected{% endif %}>
+                                            🔴 Absent
+                                        </option>
+                                    </select>
+                                    <i class="fa-solid fa-chevron-down select-icon"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- FORM ACTIONS / SAVE BUTTON -->
+            <div class="form-actions">
+                <button type="submit" class="btn-save">
+                    <i class="fa-solid fa-floppy-disk"></i> Save Attendance
+                </button>
+            </div>
+        </div>
+    </form>
+
+</div>
+{% endblock %}

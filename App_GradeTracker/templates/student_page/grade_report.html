@@ -1,0 +1,175 @@
+{% extends "base/student_base.html" %}
+
+{% block title %}Grade Report - {{ course.course_name }}{% endblock %}
+
+{% block content %}
+<!-- Include Course Navigation Header -->
+{% include "student_page/nav/course_nav.html" %}
+
+<div class="grade-report-container">
+    
+    <!-- Top Action Header -->
+    <div class="report-top-header no-print">
+        <div class="header-title">
+            <i class="fa-solid fa-file-invoice-dollar"></i>
+            <h2>Detailed Grade Report</h2>
+        </div>
+        <button class="btn-print" onclick="window.print()">
+            <i class="fa-solid fa-print"></i>
+            <span>Print Report</span>
+        </button>
+    </div>
+
+    <!-- Overall Result & Score Summary Grid -->
+    <div class="grade-report-summary-grid">
+        <!-- Final Result Card -->
+        <div class="result-card">
+            <span class="result-label">Overall Grade</span>
+            <h1 class="result-score">{{ "%.2f"|format(report.final_grade or 0) }}</h1>
+            
+            <div class="result-status-wrapper">
+                {% if report.final_grade and report.final_grade >= 60 %}
+                    <span class="status-badge badge-pass">
+                        <i class="fa-solid fa-circle-check"></i> PASSED
+                    </span>
+                {% else %}
+                    <span class="status-badge badge-fail">
+                        <i class="fa-solid fa-circle-xmark"></i> FAILED
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Grade Weight & Score Breakdown Table Card -->
+        <div class="breakdown-card">
+            <div class="card-inner-header">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Assessment Summary & Weights</span>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="custom-table breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Assessment Category</th>
+                            <th class="text-center">Weight</th>
+                            <th class="text-center">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="category-name">
+                                <i class="fa-regular fa-file-lines text-cyan"></i>
+                                <span>Assignment Average</span>
+                            </td>
+                            <td class="text-center text-muted">{{ report.assignment_weight }}%</td>
+                            <td class="text-center font-weight-bold">{{ "%.2f"|format(report.assignment or 0) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="category-name">
+                                <i class="fa-regular fa-clone text-purple"></i>
+                                <span>Midterm Exam</span>
+                            </td>
+                            <td class="text-center text-muted">{{ report.midterm_weight }}%</td>
+                            <td class="text-center font-weight-bold">{{ "%.2f"|format(report.midterm or 0) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="category-name">
+                                <i class="fa-regular fa-star text-orange"></i>
+                                <span>Final Exam</span>
+                            </td>
+                            <td class="text-center text-muted">{{ report.final_weight }}%</td>
+                            <td class="text-center font-weight-bold">{{ "%.2f"|format(report.final or 0) }}</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td class="category-name">
+                                <i class="fa-solid fa-trophy text-emerald"></i>
+                                <strong>Final Calculated Grade</strong>
+                            </td>
+                            <td class="text-center text-emerald font-weight-bold">100%</td>
+                            <td class="text-center text-cyan font-weight-bold score-final-text">
+                                {{ "%.2f"|format(report.final_grade or 0) }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Homework Details Section -->
+    <div class="hw-details-card">
+        <div class="card-inner-header">
+            <div class="header-left">
+                <i class="fa-solid fa-list-check"></i>
+                <h2>Homework & Assessment Details</h2>
+            </div>
+            <span class="count-badge">{{ homeworks|length }} Submissions</span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="custom-table hw-table">
+                <thead>
+                    <tr>
+                        <th>Assessment Name</th>
+                        <th class="text-center">Type</th>
+                        <th class="text-center">Score</th>
+                        <th class="text-center">Status</th>
+                        <th>Feedback</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in homeworks %}
+                    <tr>
+                        <td class="hw-name">
+                            <span>{{ row.assignment_name }}</span>
+                        </td>
+                        <td class="text-center">
+                            <span class="type-tag">{{ row.assignment_type|capitalize }}</span>
+                        </td>
+                        <td class="text-center font-weight-bold">
+                            {% if row.score is not none %}
+                                <span class="score-number">{{ row.score }}</span>
+                            {% else %}
+                                <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            {% if row.status == 'Graded' %}
+                                <span class="status-badge badge-graded">
+                                    <i class="fa-solid fa-check-double"></i> Graded
+                                </span>
+                            {% elif row.status == 'Submitted' %}
+                                <span class="status-badge badge-submitted">
+                                    <i class="fa-solid fa-paper-plane"></i> Submitted
+                                </span>
+                            {% else %}
+                                <span class="status-badge badge-not-submitted">
+                                    <i class="fa-solid fa-circle-exclamation"></i> Not Submitted
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td class="feedback-cell">
+                            {% if row.feedback and row.feedback != 'None' %}
+                                <span class="feedback-text">{{ row.feedback }}</span>
+                            {% else %}
+                                <span class="text-muted text-italic">No feedback provided</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Back Action Link -->
+    <div class="report-actions no-print">
+        <a href="{{ url_for('student.grades', course_id=course.course_id) }}" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Grades Overview</span>
+        </a>
+    </div>
+
+</div>
+{% endblock %}

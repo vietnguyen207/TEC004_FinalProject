@@ -1,0 +1,107 @@
+{% extends "base/instructor_base.html" %}
+
+{% block content %}
+<div class="grade-percentage-container">
+    
+    <!-- PAGE HEADER -->
+    <div class="page-header flex-between">
+        <div>
+            <span class="badge-tag">
+                <i class="fa-solid fa-sliders"></i> Course Configuration
+            </span>
+            <h1 class="page-title">Grade Percentage</h1>
+            <p class="page-subtitle">Configure the evaluation weights for Assignment, Midterm, and Final exams.</p>
+        </div>
+        
+        <a href="{{ url_for('instructor.course_dashboard', course_id=course.course_id if course else course_id) }}" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    <!-- MAIN FORM CARD -->
+    <div class="panel-card form-card-narrow">
+        <div class="panel-header">
+            <div class="panel-title-group">
+                <h2>Weight Distribution</h2>
+            </div>
+            <span class="weight-note"><i class="fa-solid fa-circle-info"></i> Total must equal 100%</span>
+        </div>
+
+        <!-- ERROR / ALERT MESSAGE -->
+        {% if error %}
+        <div class="alert-box alert-danger">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>{{ error }}</span>
+        </div>
+        {% endif %}
+
+        <form method="POST" class="percentage-form">
+            
+            <div class="form-group">
+                <label for="assignment_weight" class="form-label">
+                    <i class="fa-solid fa-book-open"></i> Assignment Weight
+                </label>
+                <div class="input-with-suffix">
+                    <input 
+                        type="number" 
+                        step="0.1"
+                        min="0"
+                        max="100"
+                        id="assignment_weight"
+                        name="assignment_weight" 
+                        value="{{ weight.assignment_weight if weight else '' }}" 
+                        placeholder="e.g. 20"
+                        required>
+                    <span class="input-suffix">%</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="midterm_weight" class="form-label">
+                    <i class="fa-solid fa-file-pen"></i> Midterm Exam Weight
+                </label>
+                <div class="input-with-suffix">
+                    <input 
+                        type="number" 
+                        step="0.1"
+                        min="0"
+                        max="100"
+                        id="midterm_weight"
+                        name="midterm_weight" 
+                        value="{{ weight.midterm_weight if weight else '' }}" 
+                        placeholder="e.g. 30"
+                        required>
+                    <span class="input-suffix">%</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="final_weight" class="form-label">
+                    <i class="fa-solid fa-graduation-cap"></i> Final Exam Weight
+                </label>
+                <div class="input-with-suffix">
+                    <input 
+                        type="number" 
+                        step="0.1"
+                        min="0"
+                        max="100"
+                        id="final_weight"
+                        name="final_weight" 
+                        value="{{ weight.final_weight if weight else '' }}" 
+                        placeholder="e.g. 50"
+                        required>
+                    <span class="input-suffix">%</span>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-save">
+                    <i class="fa-solid fa-floppy-disk"></i> Save Weights
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+{% endblock %}

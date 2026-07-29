@@ -1,0 +1,59 @@
+{% extends "base/student_base.html" %}
+
+{% block title %}My Courses{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<div class="dashboard-header">
+    <h1>My Enrolled Courses</h1>
+    <p class="subtitle">View and manage all your registered courses for the current academic terms.</p>
+</div>
+
+<!-- Courses Table Card -->
+<div class="courses-container">
+    <div class="courses-card">
+        <div class="courses-card-header">
+            <div class="header-title">
+                <i class="fa-solid fa-book-bookmark"></i>
+                <h2>Enrolled List</h2>
+            </div>
+            <span class="course-count-badge">Active Courses</span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="custom-table courses-table">
+                <thead>
+                    <tr>
+                        <th>Course ID</th>
+                        <th>Course Name</th>
+                        <th>Semester</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in courses %}
+                    <tr>
+                        <td class="course-id-cell">
+                            <span class="course-id-badge">{{ course.course_id }}</span>
+                        </td>
+                        <td class="course-name-cell">
+                            <strong>{{ course.course_name }}</strong>
+                        </td>
+                        <td class="semester-cell">
+                            <i class="fa-regular fa-calendar-check"></i>
+                            <span>{{ course.semester }}</span>
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ url_for('student.course_dashboard', course_id=course.course_id) }}" class="btn-open-course">
+                                <span>View Course</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

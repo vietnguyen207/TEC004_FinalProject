@@ -1,0 +1,113 @@
+{% extends "base/student_base.html" %}
+
+{% block title %}Attendance - {{ course.course_name }}{% endblock %}
+
+{% block content %}
+<!-- Include Course Navigation & Header Banner -->
+{% include "student_page/nav/course_nav.html" %}
+
+<div class="attendance-container">
+    <!-- Attendance Summary Statistics Cards -->
+    <div class="attendance-summary-grid">
+        <!-- Attendance Rate Metric Box -->
+        <div class="metric-card">
+            <div class="metric-icon-box cyan">
+                <i class="fa-solid fa-chart-pie"></i>
+            </div>
+            <div class="metric-info">
+                <span class="metric-label">Attendance Rate</span>
+                <h3 class="metric-value">{{ "%.2f"|format(rate) }}%</h3>
+            </div>
+        </div>
+
+        <!-- Attendance Status Alert Card -->
+        <div class="status-card">
+            <div class="status-header">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Attendance Status</span>
+            </div>
+            <div class="status-body">
+                {% if rate >= 80 %}
+                <div class="status-alert alert-success">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>Excellent attendance. Keep up the good work!</span>
+                </div>
+                {% elif rate >= 60 %}
+                <div class="status-alert alert-warning">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>Attendance is acceptable, but should be improved.</span>
+                </div>
+                {% else %}
+                <div class="status-alert alert-danger">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                    <span>Attendance is below the required level. Immediate attention needed.</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Attendance History Table Card -->
+    <div class="attendance-history-card">
+        <div class="history-card-header">
+            <div class="header-title">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <h2>Attendance History</h2>
+            </div>
+            <span class="history-count-badge">{{ attendance|length }} Sessions</span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="custom-table attendance-table">
+                <thead>
+                    <tr>
+                        <th class="text-center">Session</th>
+                        <th class="text-center">Date</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in attendance %}
+                    <tr>
+                        <td class="text-center session-cell">
+                            <span class="session-number">Session {{ row.session_number }}</span>
+                        </td>
+                        <td class="text-center date-cell">
+                            <i class="fa-regular fa-calendar-days"></i>
+                            <span>{{ row.date }}</span>
+                        </td>
+                        <td class="text-center">
+                            {% if row.status == "Present" %}
+                            <span class="status-badge badge-present">
+                                <i class="fa-solid fa-check"></i> Present
+                            </span>
+                            {% elif row.status == "Late" %}
+                            <span class="status-badge badge-late">
+                                <i class="fa-solid fa-clock"></i> Late
+                            </span>
+                            {% elif row.status == "Absent" %}
+                            <span class="status-badge badge-absent">
+                                <i class="fa-solid fa-xmark"></i> Absent
+                            </span>
+                            {% else %}
+                            <span class="status-badge badge-default">
+                                {{ row.status }}
+                            </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Back Action Link -->
+    <div class="back-link-wrapper">
+        <a href="{{ url_for('student.course_dashboard', course_id=course.course_id) }}" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Course Dashboard</span>
+        </a>
+    </div>
+</div>
+{% endblock %}

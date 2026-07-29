@@ -1,0 +1,88 @@
+{% extends "base/instructor_base.html" %}
+
+{% block content %}
+<div class="attendance-container">
+    
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <span class="badge-tag">
+            <i class="fa-solid fa-calendar-check"></i> Attendance Management
+        </span>
+        <h1 class="page-title">{{ course.course_name }}</h1>
+        <p class="page-subtitle">Track and mark attendance records for each teaching session.</p>
+    </div>
+
+    <!-- COURSE METRICS / INFO SUMMARY CARD -->
+    <div class="course-info-card">
+        <div class="info-item">
+            <span class="info-label">COURSE ID</span>
+            <span class="info-value course-id-tag">{{ course.course_id }}</span>
+        </div>
+        <div class="info-divider"></div>
+        <div class="info-item">
+            <span class="info-label">SEMESTER</span>
+            <span class="info-value">{{ course.semester }}</span>
+        </div>
+        <div class="info-divider"></div>
+        <div class="info-item">
+            <span class="info-label">TOTAL SESSIONS</span>
+            <span class="info-value text-cyan">{{ course.sessions }} Sessions</span>
+        </div>
+        <div class="info-divider"></div>
+        <div class="info-item">
+            <span class="info-label">PROGRESS</span>
+            <span class="info-value text-green">{{ completed|length }} / {{ course.sessions }} Completed</span>
+        </div>
+    </div>
+
+    <!-- MAIN PANEL TABLE -->
+    <div class="panel-card">
+        <div class="panel-header">
+            <div class="panel-title-group">
+                <h2>Session List</h2>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Session</th>
+                        <th style="width: 45%;">Status</th>
+                        <th style="width: 30%;" class="text-right">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in range(1, course.sessions + 1) %}
+                    <tr>
+                        <td>
+                            <div class="session-cell">
+                                <i class="fa-solid fa-clock-rotate-left session-icon"></i>
+                                <span>Session {{ i }}</span>
+                            </div>
+                        </td>
+                        <td>
+                            {% if i in completed %}
+                            <span class="status-badge badge-completed">
+                                <i class="fa-solid fa-circle-check"></i> Completed
+                            </span>
+                            {% else %}
+                            <span class="status-badge badge-pending">
+                                <i class="fa-solid fa-circle-xmark"></i> Not Taken
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td class="text-right">
+                            <a href="{{ url_for('instructor.attendance', course_id=course.course_id, session_number=i) }}" class="btn-open">
+                                Open <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

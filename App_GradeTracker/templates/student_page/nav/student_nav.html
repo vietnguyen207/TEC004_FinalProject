@@ -1,0 +1,43 @@
+<div class="sidebar">
+    <div class="logo">
+        <h2>🎓 Student Portal</h2>
+    </div>
+
+    <ul>
+        <li>
+            <a href="{{ url_for('student.dashboard') }}">
+                🏠&nbsp;&nbsp;Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('student.profile') }}">
+                👤&nbsp;&nbsp;My Profile
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('student.my_courses') }}">
+                📚&nbsp;&nbsp;My Courses
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('student.gpa') }}">
+                📈&nbsp;&nbsp;GPA
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('student.analytics') }}">
+                📊&nbsp;&nbsp;Analytics
+            </a>
+        </li>
+    </ul>
+
+    <hr>
+
+    <ul>
+        <li>
+            <a href="{{ url_for('auth.logout') }}" class="logout-btn">
+                🚪&nbsp;&nbsp;Logout
+            </a>
+        </li>
+    </ul>
+</div>

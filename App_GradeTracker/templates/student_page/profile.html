@@ -1,0 +1,64 @@
+{% extends "base/student_base.html" %}
+
+{% block content %}
+<div class="dashboard-header">
+    <h1>My Profile</h1>
+    <p class="subtitle">View and manage your personal student profile information.</p>
+</div>
+
+<div class="profile-container">
+    <!-- Header Card with Avatar -->
+    <div class="profile-header-card">
+        <div class="profile-avatar">
+            <span>{{ student.name[0] if student and student.name else 'S' }}</span>
+        </div>
+        <div class="profile-title-info">
+            <h2>{{ student.name if student else 'Student Name' }}</h2>
+            <p class="student-id-badge"><i class="fa-solid fa-id-card"></i> ID: {{ student.student_id if student else 'N/A' }}</p>
+        </div>
+    </div>
+
+    <!-- Detailed Info Grid -->
+    <div class="profile-details-grid">
+        <div class="info-card">
+            <div class="info-icon">
+                <i class="fa-solid fa-id-badge"></i>
+            </div>
+            <div class="info-content">
+                <label>Student ID</label>
+                <p>{{ student.student_id if student else 'N/A' }}</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="info-content">
+                <label>Full Name</label>
+                <p>{{ student.name if student else 'N/A' }}</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon">
+                <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div class="info-content">
+                <label>Email Address</label>
+                <p>{{ student.email if student else 'N/A' }}</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="info-content">
+                <label>Major</label>
+                <p>{{ student.major if student else 'N/A' }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

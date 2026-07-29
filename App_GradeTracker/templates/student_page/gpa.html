@@ -1,0 +1,53 @@
+{% extends "base/student_base.html" %}
+
+{% block title %}My GPA{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+    <h1>Grade Point Average (GPA)</h1>
+    <p class="subtitle">Track your academic performance and semester-by-semester GPA progress.</p>
+</div>
+
+<!-- Thẻ bảng GPA thiết kế rộng và đẹp hơn -->
+<div class="gpa-container">
+    <div class="gpa-card">
+        <div class="gpa-card-header">
+            <div class="header-title">
+                <i class="fa-solid fa-chart-line"></i>
+                <h2>GPA Records</h2>
+            </div>
+            <span class="gpa-status-badge">Official Record</span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="custom-table gpa-table">
+                <thead>
+                    <tr>
+                        <th>Semester</th>
+                        <th>Academic GPA</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in gpas %}
+                    <tr>
+                        <td class="semester-cell">
+                            <i class="fa-regular fa-calendar-check"></i>
+                            <span>{{ row.semester }}</span>
+                        </td>
+                        <td class="gpa-cell">
+                            <span class="gpa-badge">{{ row.gpa }}</span>
+                        </td>
+                        <td class="status-cell">
+                            <span class="status-tag completed">
+                                <i class="fa-solid fa-circle-check"></i> Completed
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

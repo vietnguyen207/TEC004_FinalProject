@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- ===== 1. METADATA & CONFIGURATION ===== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyTrack - Classroom Register</title>
+
+    <!-- ===== 2. EXTERNAL FONTS & ICONS ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- ===== 3. CUSTOM STYLESHEET ===== -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_page/attendance_course.css') }}">
+</head>
+
+<body>
+
+    <!-- ========================================================= -->
+    <!-- SECTION 1: HEADER & NAVIGATION BAR (Đồng bộ manage_stu)     -->
+    <!-- ========================================================= -->
+    <header class="navbar">
+        <a href="/admin" class="nav-brand">
+            <i class="fa-solid fa-graduation-cap logo-icon"></i>
+            <span>StudyTrack</span>
+        </a>
+        <a href="{{ url_for('admin.attendance') }}" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i> Back to Courses
+        </a>
+    </header>
+
+    <!-- ========================================================= -->
+    <!-- SECTION 2: MAIN CONTENT CONTAINER                         -->
+    <!-- ========================================================= -->
+    <div class="container">
+
+        <!-- ===== BLOCK A: PAGE HEADER (Lấy cảm hứng từ ảnh mẫu) ===== -->
+        <div class="dashboard-top-header">
+            <div>
+                <span class="badge-tag"><i class="fa-solid fa-clipboard-list"></i> Classroom Register</span>
+                <h1 class="page-title">{{ course.course_name }}</h1>
+                <p class="page-subtitle">Choose a session to view and save the attendance register.</p>
+            </div>
+            <div class="course-id-badge">
+                <i class="fa-solid fa-book"></i>
+                <span>{{ course.course_id }}</span>
+            </div>
+        </div>
+
+        <!-- ===== BLOCK B: CARD PANEL - SELECT SESSION GRID ===== -->
+        <div class="card-panel card-dark-container">
+            <div class="panel-header-flex">
+                <div>
+                    <span class="card-category text-gold">Attendance Directory</span>
+                    <h2 class="panel-title text-white">Select Session</h2>
+                </div>
+                <div class="calendar-icon-box">
+                    <i class="fa-regular fa-calendar-days"></i>
+                </div>
+            </div>
+
+            <!-- Grid danh sách các buổi học (Sessions) -->
+            <div class="sessions-grid">
+                {% for s in sessions %}
+                <a href="{{ url_for('admin.attendance_session', course_id=course.course_id, session_number=s) }}"
+                    class="session-card">
+                    <div class="session-name">Session {{ s }}</div>
+                    <div class="session-number-tag">{{ "%02d"|format(s) }}</div>
+                </a>
+                {% else %}
+                <div class="empty-state">
+                    No sessions available for this course.
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="footer-note">
+            Select any session card above to mark or modify student attendance status.
+        </div>
+
+    </div>
+
+</body>
+
+</html>

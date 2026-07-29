@@ -1,0 +1,58 @@
+{% extends "base/student_base.html" %}
+
+{% block title %}{{ course.course_name }}{% endblock %}
+
+{% block content %}
+<!-- Include Course Navigation & Header -->
+{% include "student_page/nav/course_nav.html" %}
+
+<!-- Course Overview Section -->
+<div class="course-overview-card">
+    <div class="overview-header">
+        <i class="fa-solid fa-circle-info"></i>
+        <h2>Course Overview</h2>
+    </div>
+
+    <div class="overview-grid">
+        <div class="overview-item">
+            <div class="icon-box cyan">
+                <i class="fa-solid fa-hashtag"></i>
+            </div>
+            <div class="item-details">
+                <span class="item-label">Course ID</span>
+                <strong class="item-value">{{ course.course_id }}</strong>
+            </div>
+        </div>
+
+        <div class="overview-item">
+            <div class="icon-box blue">
+                <i class="fa-solid fa-award"></i>
+            </div>
+            <div class="item-details">
+                <span class="item-label">Credits</span>
+                <strong class="item-value">{{ course.credits }} Credits</strong>
+            </div>
+        </div>
+
+        <div class="overview-item">
+            <div class="icon-box green">
+                <i class="fa-solid fa-calendar-days"></i>
+            </div>
+            <div class="item-details">
+                <span class="item-label">Semester</span>
+                <strong class="item-value">{{ course.semester }}</strong>
+            </div>
+        </div>
+
+        <div class="overview-item">
+            <div class="icon-box orange">
+                <i class="fa-solid fa-clock"></i>
+            </div>
+            <div class="item-details">
+                <span class="item-label">Total Sessions</span>
+                <strong class="item-value">{{ course.sessions }} Sessions</strong>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

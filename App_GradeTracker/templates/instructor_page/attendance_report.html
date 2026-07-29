@@ -1,0 +1,93 @@
+{% extends "base/instructor_base.html" %}
+
+{% block content %}
+<div class="attendance-report-container">
+    
+    <!-- PAGE HEADER -->
+    <div class="page-header flex-between">
+        <div>
+            <span class="badge-tag">
+                <i class="fa-solid fa-chart-pie"></i> Analytics & Reports
+            </span>
+            <h1 class="page-title">Attendance Report</h1>
+            <p class="page-subtitle">Overview of student attendance rates and performance status.</p>
+        </div>
+
+        <a href="{{ url_for('instructor.course_dashboard', course_id=course.course_id if course else course_id) }}" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    <!-- MAIN PANEL CARD -->
+    <div class="panel-card">
+        
+        <!-- Panel Header -->
+        <div class="panel-header">
+            <div class="panel-title-group">
+                <h2>Student Attendance Overview</h2>
+            </div>
+            <div class="students-count">
+                <i class="fa-solid fa-users"></i>
+                <span><strong>{{ report|length }}</strong> Students</span>
+            </div>
+        </div>
+
+        <!-- Table Responsive Container -->
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">Student ID</th>
+                        <th style="width: 35%;">Full Name</th>
+                        <th style="width: 25%;">Attendance Rate</th>
+                        <th style="width: 20%;" class="text-right">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in report %}
+                    <tr>
+                        <td>
+                            <span class="course-id-badge">{{ row.student_id }}</span>
+                        </td>
+                        <td class="course-name-cell">{{ row.name }}</td>
+                        <td>
+                            <div class="rate-progress-wrapper">
+                                <span class="rate-number">{{ row.attendance_rate }}%</span>
+                                <div class="progress-bar-bg">
+                                    <div class="progress-bar-fill {% if row.attendance_rate >= 80 %}fill-green{% elif row.attendance_rate >= 60 %}fill-yellow{% else %}fill-red{% endif %}" 
+                                         style="width: {{ row.attendance_rate }}%;">
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-right">
+                            {% if row.attendance_rate >= 80 %}
+                            <span class="status-badge badge-excellent">
+                                <i class="fa-solid fa-circle-check"></i> Excellent
+                            </span>
+                            {% elif row.attendance_rate >= 60 %}
+                            <span class="status-badge badge-good">
+                                <i class="fa-solid fa-circle-info"></i> Good
+                            </span>
+                            {% else %}
+                            <span class="status-badge badge-warning">
+                                <i class="fa-solid fa-triangle-exclamation"></i> Warning
+                            </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="empty-state">
+                            <i class="fa-solid fa-folder-open"></i>
+                            <p>No attendance report data available.</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
